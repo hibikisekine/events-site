@@ -1,227 +1,209 @@
-// グローバル変数
+// 今日行けるイベントサイト - JavaScript
+
 let currentEvents = [];
 let currentWeather = null;
 
+// APIエンドポイント（GitHub Pages用）
+const API_BASE = 'https://your-username.github.io/events-site/api';
+
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
-    loadData();
+    console.log('🚀 今日行けるイベントサイトを初期化中...');
     setupEventListeners();
+    loadData();
 });
 
 // イベントリスナーの設定
 function setupEventListeners() {
+    // フィルター要素の取得
+    const categoryFilter = document.getElementById('category-filter');
+    const cityFilter = document.getElementById('city-filter');
+    const locationFilter = document.getElementById('location-filter');
+    const freeFilter = document.getElementById('free-filter');
+    const childFriendlyFilter = document.getElementById('child-friendly-filter');
+    const parkingFilter = document.getElementById('parking-filter');
+
     // フィルター変更時のイベント
-    document.getElementById('category-filter').addEventListener('change', filterEvents);
-    document.getElementById('city-filter').addEventListener('change', filterEvents);
-    document.getElementById('location-filter').addEventListener('change', filterEvents);
-    document.getElementById('free-filter').addEventListener('change', filterEvents);
-    document.getElementById('child-friendly-filter').addEventListener('change', filterEvents);
-    document.getElementById('parking-filter').addEventListener('change', filterEvents);
+    if (categoryFilter) categoryFilter.addEventListener('change', filterEvents);
+    if (cityFilter) cityFilter.addEventListener('change', filterEvents);
+    if (locationFilter) locationFilter.addEventListener('change', filterEvents);
+    if (freeFilter) freeFilter.addEventListener('change', filterEvents);
+    if (childFriendlyFilter) childFriendlyFilter.addEventListener('change', filterEvents);
+    if (parkingFilter) parkingFilter.addEventListener('change', filterEvents);
 }
 
-// データの読み込み
+// データ読み込み
 async function loadData() {
     try {
-        showLoading();
+        console.log('📊 データを読み込み中...');
         
-        // イベントと天気情報を同時に取得
-        const response = await fetch('/api/events');
-        const data = await response.json();
+        // サンプルデータを使用（APIがない場合）
+        loadSampleData();
         
-        if (response.ok) {
-            currentEvents = data.events || [];
-            currentWeather = data.weather;
-            
-            updateWeatherDisplay();
-            updateEventsDisplay();
-        } else {
-            showError('データの取得に失敗しました: ' + data.error);
-        }
+        // 天気データの更新
+        updateWeatherDisplay();
+        
+        console.log('✅ データ読み込み完了');
     } catch (error) {
-        showError('ネットワークエラーが発生しました: ' + error.message);
+        console.error('❌ データ読み込みエラー:', error);
+        showError('データの読み込みに失敗しました');
     }
 }
 
-// 天気表示の更新
-function updateWeatherDisplay() {
-    if (!currentWeather) {
-        // 天気データがない場合のフォールバック
-        const weatherInfo = document.getElementById('weather-info');
-        const weatherIcon = document.getElementById('weather-icon');
-        
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">天気情報を取得中...</div>
-                <div class="weather-temp">--°C</div>
-                <div class="weather-humidity">湿度: --%</div>
-                <div class="weather-rain">降水確率: --%</div>
-            </div>
-        `;
-        
-        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
-        return;
-    }
+// サンプルデータ読み込み
+function loadSampleData() {
+    const sampleEvents = [
+        {
+            id: 1,
+            title: 'つくば市文化祭',
+            date: '2025-08-15',
+            time: '10:00',
+            location: 'つくば市文化会館',
+            description: 'つくば市の文化祭です。様々な展示やパフォーマンスがあります。',
+            category: '文化',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event1'
+        },
+        {
+            id: 2,
+            title: '守谷市スポーツフェス',
+            date: '2025-08-20',
+            time: '14:00',
+            location: '守谷市総合運動公園',
+            description: '守谷市のスポーツイベントです。様々なスポーツ体験ができます。',
+            category: 'スポーツ',
+            is_free: false,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: false,
+            url: 'https://example.com/event2'
+        },
+        {
+            id: 3,
+            title: '子育てサポート講座',
+            date: '2025-08-25',
+            time: '13:30',
+            location: '取手市子育て支援センター',
+            description: '子育て中の方のためのサポート講座です。',
+            category: '子育て',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event3'
+        }
+    ];
     
-    const weatherInfo = document.getElementById('weather-info');
-    const weatherIcon = document.getElementById('weather-icon');
-    
-    // 今日の天気を取得
-    const today = new Date().toISOString().split('T')[0];
-    const todayWeather = currentWeather.forecast ? currentWeather.forecast.find(f => f.date === today) : null;
-    
-    if (todayWeather) {
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">${todayWeather.description || todayWeather.condition || '晴れ'}</div>
-                <div class="weather-temp">${todayWeather.temperature || todayWeather.temp_max || '--'}°C</div>
-                <div class="weather-humidity">湿度: ${todayWeather.humidity || '--'}%</div>
-                <div class="weather-rain">降水確率: ${Math.round(todayWeather.rain_probability || todayWeather.precipitation || 0)}%</div>
-            </div>
-        `;
-        
-        // 天気アイコンの更新
-        updateWeatherIcon(weatherIcon, todayWeather);
-    } else {
-        // 今日の天気データがない場合のフォールバック
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">天気情報を取得中...</div>
-                <div class="weather-temp">--°C</div>
-                <div class="weather-humidity">湿度: --%</div>
-                <div class="weather-rain">降水確率: --%</div>
-            </div>
-        `;
-        
-        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
-    }
+    currentEvents = sampleEvents;
+    updateEventsDisplay();
 }
 
-// 天気アイコンの更新
-function updateWeatherIcon(iconElement, weather) {
-    let iconClass = 'fas fa-sun';
-    let iconColor = 'text-warning';
+// フィルター適用
+function filterEvents() {
+    console.log('🔍 フィルター適用中...');
     
-    if (weather.is_rainy) {
-        iconClass = 'fas fa-cloud-rain';
-        iconColor = 'text-info';
-    } else if (weather.main === 'Clouds') {
-        iconClass = 'fas fa-cloud';
-        iconColor = 'text-secondary';
-    } else if (weather.main === 'Snow') {
-        iconClass = 'fas fa-snowflake';
-        iconColor = 'text-info';
-    }
+    const category = document.getElementById('category-filter')?.value || '';
+    const city = document.getElementById('city-filter')?.value || '';
+    const location = document.getElementById('location-filter')?.value || '';
+    const freeOnly = document.getElementById('free-filter')?.checked || false;
+    const childFriendly = document.getElementById('child-friendly-filter')?.checked || false;
+    const parkingRequired = document.getElementById('parking-filter')?.checked || false;
+
+    // フィルタリングロジック
+    let filteredEvents = currentEvents.filter(event => {
+        if (category && event.category !== category) return false;
+        if (city && !event.location.includes(city)) return false;
+        if (location === 'indoor' && !event.is_indoor) return false;
+        if (location === 'outdoor' && event.is_indoor) return false;
+        if (freeOnly && !event.is_free) return false;
+        if (childFriendly && !event.child_friendly) return false;
+        if (parkingRequired && !event.has_parking) return false;
+        return true;
+    });
+
+    // 表示更新
+    currentEvents = filteredEvents;
+    updateEventsDisplay();
     
-    iconElement.innerHTML = `<i class="${iconClass} fa-3x ${iconColor}"></i>`;
+    console.log(`✅ フィルター適用完了: ${filteredEvents.length}件`);
 }
 
-// イベント表示の更新
+// イベント表示更新
 function updateEventsDisplay() {
     const container = document.getElementById('events-container');
     const countElement = document.getElementById('event-count');
     
+    if (!container) return;
+    
+    // 件数更新
+    if (countElement) {
+        countElement.textContent = `${currentEvents.length}件`;
+    }
+    
     if (currentEvents.length === 0) {
         container.innerHTML = `
-            <div class="empty-state">
-                <i class="fas fa-calendar-times"></i>
-                <h5>イベントが見つかりません</h5>
-                <p>現在、おすすめのイベントはありません。</p>
-                <button class="btn btn-primary" onclick="scrapeEvents()">
-                    <i class="fas fa-download me-1"></i>
-                    イベント情報を更新
-                </button>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                条件に合うイベントが見つかりませんでした。
             </div>
         `;
-        countElement.textContent = '0件';
         return;
     }
     
-    // イベントカードの生成
-    const eventCards = currentEvents.map(event => createEventCard(event)).join('');
-    container.innerHTML = eventCards;
-    countElement.textContent = `${currentEvents.length}件`;
+    // イベントカード生成
+    const eventsHTML = currentEvents.map(event => createEventCard(event)).join('');
+    container.innerHTML = eventsHTML;
 }
 
-// イベントカードの作成
+// イベントカード作成
 function createEventCard(event) {
-    const tags = generateEventTags(event);
-    const score = Math.round(event.suitability_score * 100);
+    const date = new Date(event.date);
+    const formattedDate = date.toLocaleDateString('ja-JP', {
+        month: 'long',
+        day: 'numeric',
+        weekday: 'short'
+    });
+    
+    const timeStr = event.time ? event.time : '';
+    const locationStr = event.location || '場所未定';
+    const descriptionStr = event.description || '';
     
     return `
-        <div class="card event-card" onclick="showEventDetails('${event.id}')">
-            <div class="card-body position-relative">
-                <div class="suitability-score">適合度: ${score}%</div>
-                
-                <h5 class="event-title">${escapeHtml(event.title)}</h5>
-                
+        <div class="event-card" onclick="showEventDetails(${event.id})">
+            <div class="event-header">
+                <h4 class="event-title">${escapeHtml(event.title)}</h4>
+                <div class="event-badges">
+                    ${event.is_free ? '<span class="badge bg-success">無料</span>' : '<span class="badge bg-warning">有料</span>'}
+                    ${event.child_friendly ? '<span class="badge bg-info">子連れOK</span>' : ''}
+                    ${event.has_parking ? '<span class="badge bg-secondary">駐車場</span>' : ''}
+                    ${event.is_indoor ? '<span class="badge bg-primary">屋内</span>' : '<span class="badge bg-success">屋外</span>'}
+                    <span class="badge bg-dark">${event.category}</span>
+                    ${locationStr && locationStr.includes('市') ? `<span class="badge bg-info ms-2">${locationStr.match(/[^市]*市/)?.[0] || ''}</span>` : ''}
+                </div>
+            </div>
+            <div class="event-details">
                 <div class="event-date">
                     <i class="fas fa-calendar me-1"></i>
-                    ${formatDate(event.date)} ${event.time ? `(${event.time})` : ''}
+                    ${formattedDate} ${timeStr}
                 </div>
-                
                 <div class="event-location">
                     <i class="fas fa-map-marker-alt me-1"></i>
-                    ${escapeHtml(event.location || '場所未定')}
-                    ${event.location && event.location.includes('市') ? `<span class="badge bg-info ms-2">${event.location.match(/[^市]*市/)?.[0] || ''}</span>` : ''}
+                    ${escapeHtml(locationStr)}
                 </div>
-                
-                ${event.description ? `
-                    <div class="event-description">
-                        ${escapeHtml((event.description || '').substring(0, 150))}${(event.description || '').length > 150 ? '...' : ''}
-                    </div>
-                ` : ''}
-                
-                <div class="event-tags">
-                    ${tags}
+                <div class="event-description">
+                    ${escapeHtml(descriptionStr.substring(0, 150))}${descriptionStr.length > 150 ? '...' : ''}
                 </div>
-                
-                ${event.recommendation_reason ? `
-                    <div class="recommendation-reason">
-                        <i class="fas fa-lightbulb text-warning me-1"></i>
-                        <small class="text-muted">${escapeHtml(event.recommendation_reason)}</small>
-                    </div>
-                ` : ''}
             </div>
         </div>
     `;
 }
 
-// イベントタグの生成
-function generateEventTags(event) {
-    const tags = [];
-    
-    if (event.is_indoor) {
-        tags.push('<span class="event-tag tag-indoor">屋内</span>');
-    } else {
-        tags.push('<span class="event-tag tag-outdoor">屋外</span>');
-    }
-    
-    if (event.is_free) {
-        tags.push('<span class="event-tag tag-free">無料</span>');
-    }
-    
-    if (event.child_friendly) {
-        tags.push('<span class="event-tag tag-child-friendly">子連れOK</span>');
-    }
-    
-    if (event.has_parking) {
-        tags.push('<span class="event-tag tag-parking">駐車場</span>');
-    }
-    
-    if (event.weather_dependent) {
-        tags.push('<span class="event-tag tag-weather-dependent">天候依存</span>');
-    }
-    
-    if (event.rain_cancellation) {
-        tags.push(`<span class="event-tag tag-weather-dependent">${event.rain_cancellation}</span>`);
-    }
-    
-    return tags.join('');
-}
-
-// イベント詳細の表示
+// イベント詳細表示
 function showEventDetails(eventId) {
-    const event = currentEvents.find(e => e.id == eventId);
+    const event = currentEvents.find(e => e.id === eventId);
     if (!event) return;
     
     const modal = new bootstrap.Modal(document.getElementById('eventModal'));
@@ -229,255 +211,129 @@ function showEventDetails(eventId) {
     const bodyElement = document.getElementById('eventModalBody');
     const linkElement = document.getElementById('eventModalLink');
     
-    titleElement.textContent = event.title;
+    if (titleElement) titleElement.textContent = event.title;
+    if (linkElement) linkElement.href = event.url;
     
-    bodyElement.innerHTML = `
-        <div class="row">
-            <div class="col-md-6">
-                <h6><i class="fas fa-calendar me-2"></i>日時</h6>
-                <p>${formatDate(event.date)} ${event.time || ''}</p>
-                
-                <h6><i class="fas fa-map-marker-alt me-2"></i>場所</h6>
-                <p>${escapeHtml(event.location || '場所未定')}</p>
-                
-                <h6><i class="fas fa-tag me-2"></i>カテゴリ</h6>
-                <p>${escapeHtml(event.category || 'カテゴリ未定')}</p>
-            </div>
-            <div class="col-md-6">
-                <h6><i class="fas fa-info-circle me-2"></i>詳細</h6>
-                <p>${escapeHtml(event.description || '詳細情報はありません')}</p>
-                
-                <h6><i class="fas fa-star me-2"></i>特徴</h6>
-                <ul class="list-unstyled">
-                    ${event.is_indoor ? '<li><i class="fas fa-home text-primary me-1"></i>屋内イベント</li>' : '<li><i class="fas fa-tree text-success me-1"></i>屋外イベント</li>'}
-                    ${event.is_free ? '<li><i class="fas fa-gift text-danger me-1"></i>無料</li>' : '<li><i class="fas fa-yen-sign text-warning me-1"></i>有料</li>'}
-                    ${event.child_friendly ? '<li><i class="fas fa-baby text-warning me-1"></i>子連れOK</li>' : ''}
-                    ${event.has_parking ? '<li><i class="fas fa-car text-info me-1"></i>駐車場あり</li>' : ''}
-                </ul>
-            </div>
-        </div>
+    if (bodyElement) {
+        const date = new Date(event.date);
+        const formattedDate = date.toLocaleDateString('ja-JP', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long'
+        });
         
-        ${event.weather_info ? `
-            <div class="mt-3">
-                <h6><i class="fas fa-cloud-sun me-2"></i>当日の天気予報</h6>
-                <p>${event.weather_info.description}、${event.weather_info.temperature}°C</p>
+        bodyElement.innerHTML = `
+            <div class="event-detail-info">
+                <p><strong>日時:</strong> ${formattedDate} ${event.time || ''}</p>
+                <p><strong>場所:</strong> ${escapeHtml(event.location || '場所未定')}</p>
+                <p><strong>カテゴリ:</strong> ${escapeHtml(event.category || 'カテゴリ未定')}</p>
+                <p><strong>料金:</strong> ${event.is_free ? '無料' : '有料'}</p>
+                <p><strong>駐車場:</strong> ${event.has_parking ? 'あり' : 'なし'}</p>
+                <p><strong>子連れ:</strong> ${event.child_friendly ? 'OK' : '要確認'}</p>
+                <p><strong>屋内/屋外:</strong> ${event.is_indoor ? '屋内' : '屋外'}</p>
             </div>
-        ` : ''}
-    `;
-    
-    if (event.source_url) {
-        linkElement.href = event.source_url;
-        linkElement.style.display = 'inline-block';
-    } else {
-        linkElement.style.display = 'none';
+            <div class="event-description-full">
+                <h6>詳細</h6>
+                <p>${escapeHtml(event.description || '詳細情報はありません')}</p>
+            </div>
+        `;
     }
     
     modal.show();
 }
 
-// フィルター機能
-function filterEvents() {
-    // フィルター適用中の表示
-    showFilterLoading();
-    
-    const category = document.getElementById('category-filter').value;
-    const city = document.getElementById('city-filter').value;
-    const location = document.getElementById('location-filter').value;
-    const freeOnly = document.getElementById('free-filter').checked;
-    const childFriendly = document.getElementById('child-friendly-filter').checked;
-    const parkingRequired = document.getElementById('parking-filter').checked;
-    
-    // フィルターパラメータの構築
-    const params = new URLSearchParams();
-    if (category) params.append('category', category);
-    if (city) params.append('city', city);
-    if (location) params.append(location === 'indoor' ? 'indoor_only' : 'outdoor_only', 'true');
-    if (freeOnly) params.append('free_only', 'true');
-    if (childFriendly) params.append('child_friendly', 'true');
-    if (parkingRequired) params.append('parking_required', 'true');
-    
-    // APIからフィルター結果を取得
-    fetch(`/api/filter?${params.toString()}`)
-        .then(response => {
-            console.log('フィルターレスポンス:', response.status, response.statusText);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+// 天気表示更新
+function updateWeatherDisplay() {
+    // サンプル天気データ
+    const sampleWeather = {
+        current: {
+            temperature: 25,
+            condition: '晴れ',
+            humidity: 60,
+            rain_probability: 10
+        },
+        forecast: [
+            {
+                date: new Date().toISOString().split('T')[0],
+                condition: '晴れ',
+                temperature: 25,
+                humidity: 60,
+                rain_probability: 10
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('フィルター結果:', data);
-            console.log('eventsプロパティの存在:', !!data.events);
-            console.log('eventsの型:', typeof data.events);
-            console.log('eventsの長さ:', data.events ? data.events.length : 'undefined');
-            
-            if (data && data.events) {
-                console.log('✅ 正常なレスポンス - イベントを更新');
-                currentEvents = data.events.map(event => ({
-                    ...event,
-                    suitability_score: event.suitability_score || 0.5 // デフォルトスコア
-                }));
-                updateEventsDisplay();
-                
-                // フィルター適用完了の通知
-                showFilterSuccess();
-            } else {
-                console.warn('⚠️ フィルター結果にeventsプロパティがありません:', data);
-                currentEvents = [];
-                updateEventsDisplay();
-                showFilterSuccess();
-            }
-        })
-        .catch(error => {
-            console.error('❌ フィルターエラー:', error);
-            showFilterError();
-            
-            // エラー時は全イベントを表示
-            loadData();
-        });
-}
-
-// データの更新
-function refreshData() {
-    loadData();
-}
-
-// イベント情報のスクレイピング
-async function scrapeEvents() {
-    try {
-        showLoading();
-        
-        const response = await fetch('/api/scrape-events');
-        const data = await response.json();
-        
-        if (response.ok) {
-            showSuccess(data.message);
-            loadData(); // 新しいデータを読み込み
-        } else {
-            showError('スクレイピングに失敗しました: ' + data.error);
-        }
-    } catch (error) {
-        showError('スクレイピングエラー: ' + error.message);
+        ]
+    };
+    
+    currentWeather = sampleWeather;
+    
+    const weatherInfo = document.getElementById('weather-info');
+    const weatherIcon = document.getElementById('weather-icon');
+    
+    if (!weatherInfo || !weatherIcon) return;
+    
+    const today = new Date().toISOString().split('T')[0];
+    const todayWeather = currentWeather.forecast ? currentWeather.forecast.find(f => f.date === today) : null;
+    
+    if (todayWeather) {
+        weatherInfo.innerHTML = `
+            <div class="weather-details">
+                <div class="weather-main">${todayWeather.condition || '晴れ'}</div>
+                <div class="weather-temp">${todayWeather.temperature || '--'}°C</div>
+                <div class="weather-humidity">湿度: ${todayWeather.humidity || '--'}%</div>
+                <div class="weather-rain">降水確率: ${Math.round(todayWeather.rain_probability || 0)}%</div>
+            </div>
+        `;
+        updateWeatherIcon(weatherIcon, todayWeather);
+    } else {
+        weatherInfo.innerHTML = `
+            <div class="weather-details">
+                <div class="weather-main">天気情報を取得中...</div>
+                <div class="weather-temp">--°C</div>
+                <div class="weather-humidity">湿度: --%</div>
+                <div class="weather-rain">降水確率: --%</div>
+            </div>
+        `;
+        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
     }
 }
 
-// ローディング表示
-function showLoading() {
-    const container = document.getElementById('events-container');
-    container.innerHTML = `
-        <div class="loading-spinner">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">読み込み中...</span>
-            </div>
-            <p class="mt-2">データを読み込み中...</p>
-        </div>
-    `;
+// 天気アイコン更新
+function updateWeatherIcon(iconElement, weather) {
+    const condition = weather.condition || '';
+    const isRainy = condition.includes('雨') || condition.includes('雪');
+    const isCloudy = condition.includes('曇');
+    
+    if (isRainy) {
+        iconElement.innerHTML = '<i class="fas fa-cloud-rain fa-3x text-info"></i>';
+    } else if (isCloudy) {
+        iconElement.innerHTML = '<i class="fas fa-cloud fa-3x text-secondary"></i>';
+    } else {
+        iconElement.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
+    }
+}
+
+// データ更新
+function refreshData() {
+    console.log('🔄 データを更新中...');
+    loadData();
 }
 
 // エラー表示
 function showError(message) {
     const container = document.getElementById('events-container');
-    container.innerHTML = `
-        <div class="error-message">
-            <i class="fas fa-exclamation-triangle me-2"></i>
-            ${escapeHtml(message)}
-        </div>
-    `;
-}
-
-// 成功メッセージ表示
-function showSuccess(message) {
-    const container = document.getElementById('events-container');
-    const successDiv = document.createElement('div');
-    successDiv.className = 'success-message';
-    successDiv.innerHTML = `
-        <i class="fas fa-check-circle me-2"></i>
-        ${escapeHtml(message)}
-    `;
-    container.insertBefore(successDiv, container.firstChild);
-    
-    // 3秒後にメッセージを削除
-    setTimeout(() => {
-        if (successDiv.parentNode) {
-            successDiv.parentNode.removeChild(successDiv);
-        }
-    }, 3000);
-}
-
-// フィルター適用中の表示
-function showFilterLoading() {
-    const filterSection = document.querySelector('.filter-section');
-    const loadingDiv = document.createElement('div');
-    loadingDiv.id = 'filter-loading';
-    loadingDiv.className = 'filter-loading';
-    loadingDiv.innerHTML = `
-        <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
-            <span class="visually-hidden">フィルター適用中...</span>
-        </div>
-        <span>フィルター適用中...</span>
-    `;
-    
-    // 既存のローディング表示を削除
-    const existingLoading = document.getElementById('filter-loading');
-    if (existingLoading) {
-        existingLoading.remove();
-    }
-    
-    filterSection.appendChild(loadingDiv);
-}
-
-// フィルター適用完了の表示
-function showFilterSuccess() {
-    const loadingDiv = document.getElementById('filter-loading');
-    if (loadingDiv) {
-        loadingDiv.innerHTML = `
-            <i class="fas fa-check-circle text-success me-2"></i>
-            <span>フィルター適用完了</span>
+    if (container) {
+        container.innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                ${escapeHtml(message)}
+            </div>
         `;
-        loadingDiv.className = 'filter-success';
-        
-        // 2秒後に削除
-        setTimeout(() => {
-            if (loadingDiv.parentNode) {
-                loadingDiv.parentNode.removeChild(loadingDiv);
-            }
-        }, 2000);
     }
 }
 
-// フィルターエラーの表示
-function showFilterError() {
-    const loadingDiv = document.getElementById('filter-loading');
-    if (loadingDiv) {
-        loadingDiv.innerHTML = `
-            <i class="fas fa-exclamation-triangle text-danger me-2"></i>
-            <span>フィルター適用エラー</span>
-        `;
-        loadingDiv.className = 'filter-error';
-        
-        // 3秒後に削除
-        setTimeout(() => {
-            if (loadingDiv.parentNode) {
-                loadingDiv.parentNode.removeChild(loadingDiv);
-            }
-        }, 3000);
-    }
-}
-
-// ユーティリティ関数
+// HTMLエスケープ
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
-}
-
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric',
-        weekday: 'long'
-    };
-    return date.toLocaleDateString('ja-JP', options);
 } 
