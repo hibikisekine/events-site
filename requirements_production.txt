@@ -1,0 +1,35 @@
+# 本番環境用依存関係
+
+# Web Framework
+Flask==2.3.3
+gunicorn==21.2.0
+
+# データベース
+sqlite3
+
+# HTTP リクエスト
+requests==2.31.0
+
+# 環境変数管理
+python-dotenv==1.0.0
+
+# ログ管理
+structlog==23.1.0
+
+# セキュリティ
+cryptography==41.0.4
+
+# パフォーマンス監視
+psutil==5.9.5
+
+# ヘルスチェック
+healthcheck==1.3.0
+
+# キャッシュ
+redis==4.6.0
+
+# バックグラウンドタスク
+celery==5.3.1
+
+# 監視・メトリクス
+prometheus-client==0.17.1 

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日行けるイベント - つくばみらい市周辺</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+     crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap CSS -->
+</head>
+<body>
+    <!-- ヘッダー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-calendar-alt me-2"></i>
+                今日行けるイベント
+            </a>
+            <div class="navbar-nav ms-auto">
+                <button class="btn btn-outline-light btn-sm" onclick="refreshData()">
+                    <i class="fas fa-sync-alt"></i> 更新
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <div class="container mt-4">
+        <!-- 天気情報 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card weather-card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h5 class="card-title">
+                                    <i class="fas fa-cloud-sun me-2"></i>
+                                    今日の天気
+                                </h5>
+                                <div id="weather-info" class="weather-info">
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">読み込み中...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div id="weather-icon" class="weather-icon">
+                                    <i class="fas fa-sun fa-3x text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- フィルター -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card filter-section">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-filter me-2"></i>
+                            フィルター
+                        </h6>
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <select class="form-select" id="category-filter">
+                                    <option value="">全てのカテゴリ</option>
+                                    <option value="文化">文化</option>
+                                    <option value="スポーツ">スポーツ</option>
+                                    <option value="子育て">子育て</option>
+                                    <option value="教育">教育</option>
+                                    <option value="地域">地域</option>
+                                    <option value="その他">その他</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <select class="form-select" id="city-filter">
+                                    <option value="">全ての地域</option>
+                                    <option value="つくばみらい市">つくばみらい市</option>
+                                    <option value="つくば市">つくば市</option>
+                                    <option value="守谷市">守谷市</option>
+                                    <option value="常総市">常総市</option>
+                                    <option value="取手市">取手市</option>
+                                    <option value="龍ケ崎市">龍ケ崎市</option>
+                                    <option value="古河市">古河市</option>
+                                    <option value="坂東市">坂東市</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <select class="form-select" id="location-filter">
+                                    <option value="">屋内/屋外</option>
+                                    <option value="indoor">屋内のみ</option>
+                                    <option value="outdoor">屋外のみ</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="free-filter">
+                                    <label class="form-check-label" for="free-filter">
+                                        無料イベントのみ
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="child-friendly-filter">
+                                    <label class="form-check-label" for="child-friendly-filter">
+                                        子連れOK
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="parking-filter">
+                                    <label class="form-check-label" for="parking-filter">
+                                        駐車場あり
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 広告スペース -->
+        <div class="ad-section mb-4">
+            <div class="ad-banner">
+                <!-- Google AdSense 広告スペース -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+
+        <!-- イベント一覧 -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-calendar-day me-2"></i>
+                                おすすめイベント
+                            </h5>
+                            <span class="badge bg-primary" id="event-count">0件</span>
+                        </div>
+                        <div id="events-container">
+                            <div class="text-center py-4">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">読み込み中...</span>
+                                </div>
+                                <p class="mt-2">イベント情報を読み込み中...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- イベント詳細モーダル -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalTitle">イベント詳細</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="eventModalBody">
+                    <!-- イベント詳細がここに表示されます -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                    <a href="#" class="btn btn-primary" id="eventModalLink" target="_blank">
+                        <i class="fas fa-external-link-alt me-1"></i>
+                        詳細を見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>今日行けるイベント</h6>
+                    <p class="text-muted small">
+                        つくばみらい市周辺のイベント情報を天気予報と組み合わせてお届けします。
+                    </p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <button class="btn btn-outline-primary btn-sm" onclick="scrapeEvents()">
+                        <i class="fas fa-download me-1"></i>
+                        イベント情報更新
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html> 

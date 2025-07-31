@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日行けるイベント - テストページ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .success {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        .feature h3 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success">✅ 接続成功！</div>
+        <h1>今日行けるイベントサイト</h1>
+        
+        <div class="status">
+            <h3>🎉 ブラウザアクセス確認完了</h3>
+            <p>HTMLファイルが正常に表示されています。</p>
+            <p>現在時刻: <span id="current-time"></span></p>
+        </div>
+
+        <div class="feature">
+            <h3>🌤️ 天気予報連携</h3>
+            <p>OpenWeatherMap APIを使用した3日間の天気予報</p>
+        </div>
+
+        <div class="feature">
+            <h3>📅 イベント情報収集</h3>
+            <p>つくばみらい市、守谷市、取手市のイベント情報を自動スクレイピング</p>
+        </div>
+
+        <div class="feature">
+            <h3>🌧️ 天候フィルタリング</h3>
+            <p>雨の日は屋内イベント、晴れの日は屋外イベントを優先表示</p>
+        </div>
+
+        <div class="feature">
+            <h3>🎯 適合度スコア</h3>
+            <p>天候とイベントの適合性を数値化して表示</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="#" class="btn" onclick="testFlask()">Flaskアプリをテスト</a>
+            <a href="#" class="btn" onclick="showInfo()">詳細情報</a>
+        </div>
+    </div>
+
+    <script>
+        // 現在時刻を表示
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleString('ja-JP');
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Flaskアプリのテスト
+        function testFlask() {
+            fetch('http://localhost:8000')
+                .then(response => {
+                    if (response.ok) {
+                        alert('Flaskアプリが正常に動作しています！');
+                    } else {
+                        alert('Flaskアプリに接続できません。');
+                    }
+                })
+                .catch(error => {
+                    alert('Flaskアプリが起動していません。\n\nエラー: ' + error.message);
+                });
+        }
+
+        // 詳細情報表示
+        function showInfo() {
+            alert('今日行けるイベントサイト\n\n' +
+                  '• 天気予報とイベント情報を組み合わせたWebアプリ\n' +
+                  '• つくばみらい市周辺のイベントに特化\n' +
+                  '• 天候に応じた最適なイベント提案\n' +
+                  '• 子連れOK、無料イベントなどのフィルター機能\n\n' +
+                  '技術スタック:\n' +
+                  '• バックエンド: Flask, SQLite\n' +
+                  '• フロントエンド: Bootstrap 5, JavaScript\n' +
+                  '• API: OpenWeatherMap\n' +
+                  '• スクレイピング: BeautifulSoup4, Selenium');
+        }
+    </script>
+</body>
+</html> 
