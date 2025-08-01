@@ -3,6 +3,25 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# X (Twitter) API認証情報
+X_API_KEY = "2Lmr61n73q3deXyP7YPfJPg6o"
+X_API_SECRET = ""  # API Secret Keyを入力
+X_ACCESS_TOKEN = ""  # Access Tokenを入力
+X_ACCESS_TOKEN_SECRET = ""  # Access Token Secretを入力
+
+# データベース設定
+EVENTS_DB = "events.db"
+RESTAURANTS_DB = "restaurants.db"
+
+# ログ設定
+LOG_LEVEL = "INFO"
+LOG_FILE = "scraper.log"
+
+# スクレイピング設定
+SCRAPING_INTERVAL_HOURS = 24  # 24時間ごとに実行
+MAX_TWEETS_PER_KEYWORD = 100  # キーワードごとの最大ツイート数
+DAYS_BACK = 7  # 過去何日分を取得するか
+
 class Config:
     """アプリケーション設定"""
     

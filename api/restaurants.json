@@ -1,0 +1,42 @@
+{
+  "restaurants": [
+    {
+      "id": 1,
+      "name": "つくばラーメン 新店舗",
+      "description": "つくば駅前で新規オープン！本格ラーメン店です。",
+      "city": "つくば市",
+      "address": "つくば市吾妻1-1-1",
+      "phone": "029-123-4567",
+      "category": "麺類",
+      "opening_date": "2025-08-15",
+      "source_url": "https://twitter.com/restaurant_info/status/123456789",
+      "source_type": "twitter"
+    },
+    {
+      "id": 2,
+      "name": "カフェ つくばみらい",
+      "description": "つくばみらい市で新規オープンしたカフェです。",
+      "city": "つくばみらい市",
+      "address": "つくばみらい市板橋1234",
+      "phone": "029-987-6543",
+      "category": "カフェ",
+      "opening_date": "2025-08-20",
+      "source_url": "https://instagram.com/cafe_tsukubamirai",
+      "source_type": "instagram"
+    },
+    {
+      "id": 3,
+      "name": "居酒屋 取手",
+      "description": "取手市で新規オープンした居酒屋です。",
+      "city": "取手市",
+      "address": "取手市取手5-5-5",
+      "phone": "029-555-1234",
+      "category": "居酒屋・バー",
+      "opening_date": "2025-08-25",
+      "source_url": "https://www.city.toride.ibaraki.jp/",
+      "source_type": "official_site"
+    }
+  ],
+  "count": 3,
+  "timestamp": "2025-08-01T11:00:00"
+} 
