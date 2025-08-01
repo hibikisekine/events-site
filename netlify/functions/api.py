@@ -30,6 +30,8 @@ def handler(event, context):
             return get_weather(event, headers)
         elif path == 'stats':
             return get_stats(event, headers)
+        elif path == 'debug':
+            return debug_info(event, headers)
         else:
             return {
                 'statusCode': 404,
@@ -46,8 +48,8 @@ def handler(event, context):
 def get_events(event, headers):
     """スクレイピングされたイベントデータを取得"""
     try:
-        # データベースファイルのパス
-        db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'events.db')
+        # データベースファイルのパス（Netlify Functions環境用）
+        db_path = os.path.join(os.path.dirname(__file__), 'events.db')
         
         # データベースに接続
         conn = sqlite3.connect(db_path)
@@ -179,7 +181,7 @@ def get_weather(event, headers):
 def get_stats(event, headers):
     """スクレイピング統計を取得"""
     try:
-        db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'events.db')
+        db_path = os.path.join(os.path.dirname(__file__), 'events.db')
         
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
@@ -212,4 +214,61 @@ def get_stats(event, headers):
             'statusCode': 500,
             'headers': headers,
             'body': json.dumps({'error': f'Stats error: {str(e)}'})
+        }
+
+def debug_info(event, headers):
+    """デバッグ情報を取得"""
+    try:
+        db_path = os.path.join(os.path.dirname(__file__), 'events.db')
+        
+        # ファイルの存在確認
+        file_exists = os.path.exists(db_path)
+        file_size = os.path.getsize(db_path) if file_exists else 0
+        
+        # データベースに接続してテスト
+        conn = None
+        table_exists = False
+        event_count = 0
+        
+        if file_exists:
+            try:
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                
+                # テーブルの存在確認
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='events'")
+                table_exists = cursor.fetchone() is not None
+                
+                if table_exists:
+                    cursor.execute("SELECT COUNT(*) FROM events")
+                    event_count = cursor.fetchone()[0]
+                
+                conn.close()
+            except Exception as e:
+                db_error = str(e)
+        else:
+            db_error = "Database file not found"
+        
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({
+                'debug_info': {
+                    'file_exists': file_exists,
+                    'file_size': file_size,
+                    'table_exists': table_exists,
+                    'event_count': event_count,
+                    'db_error': db_error if 'db_error' in locals() else None,
+                    'current_path': os.path.dirname(__file__),
+                    'db_path': db_path
+                },
+                'timestamp': datetime.now().isoformat()
+            })
+        }
+        
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': f'Debug error: {str(e)}'})
         } 
