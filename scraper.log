@@ -1,0 +1,397 @@
+2025-08-01 10:04:23,661 - INFO - データベース初期化完了
+2025-08-01 10:05:03,031 - INFO - データベース初期化完了
+2025-08-01 10:05:03,031 - INFO - 毎日スクレイピング開始
+2025-08-01 10:05:03,032 - INFO - つくばみらい市役所からイベント情報を取得中...
+2025-08-01 10:05:23,884 - INFO - つくば市役所からイベント情報を取得中...
+2025-08-01 10:05:51,244 - WARNING - データ抽出エラー: Message: unknown error: unsupported protocol
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x0000000103458b38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x0000000103450aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x0000000102fa233c cxxbridge1$string$len + 90648
+3   chromedriver                        0x0000000102fa52ec cxxbridge1$string$len + 102856
+4   chromedriver                        0x000000010302b308 cxxbridge1$string$len + 651748
+5   chromedriver                        0x000000010302a880 cxxbridge1$string$len + 649052
+6   chromedriver                        0x0000000102fdd784 cxxbridge1$string$len + 333408
+7   chromedriver                        0x000000010341beb4 cxxbridge1$str$ptr + 2473124
+8   chromedriver                        0x000000010341f120 cxxbridge1$str$ptr + 2486032
+9   chromedriver                        0x00000001033fd6b4 cxxbridge1$str$ptr + 2348196
+10  chromedriver                        0x000000010341f9dc cxxbridge1$str$ptr + 2488268
+11  chromedriver                        0x00000001033ee730 cxxbridge1$str$ptr + 2286880
+12  chromedriver                        0x000000010343f5f8 cxxbridge1$str$ptr + 2618344
+13  chromedriver                        0x000000010343f784 cxxbridge1$str$ptr + 2618740
+14  chromedriver                        0x00000001034506e4 cxxbridge1$str$ptr + 2688212
+15  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+16  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:05:58,033 - INFO - 守谷市役所からイベント情報を取得中...
+2025-08-01 10:06:05,649 - INFO - 取手市役所からイベント情報を取得中...
+2025-08-01 10:06:18,602 - WARNING - データ抽出エラー: Message: unknown error: unsupported protocol
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x00000001046f8b38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x00000001046f0aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x000000010424233c cxxbridge1$string$len + 90648
+3   chromedriver                        0x00000001042452ec cxxbridge1$string$len + 102856
+4   chromedriver                        0x00000001042cb308 cxxbridge1$string$len + 651748
+5   chromedriver                        0x00000001042ca880 cxxbridge1$string$len + 649052
+6   chromedriver                        0x000000010427d784 cxxbridge1$string$len + 333408
+7   chromedriver                        0x00000001046bbeb4 cxxbridge1$str$ptr + 2473124
+8   chromedriver                        0x00000001046bf120 cxxbridge1$str$ptr + 2486032
+9   chromedriver                        0x000000010469d6b4 cxxbridge1$str$ptr + 2348196
+10  chromedriver                        0x00000001046bf9dc cxxbridge1$str$ptr + 2488268
+11  chromedriver                        0x000000010468e730 cxxbridge1$str$ptr + 2286880
+12  chromedriver                        0x00000001046df5f8 cxxbridge1$str$ptr + 2618344
+13  chromedriver                        0x00000001046df784 cxxbridge1$str$ptr + 2618740
+14  chromedriver                        0x00000001046f06e4 cxxbridge1$str$ptr + 2688212
+15  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+16  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:06:34,828 - INFO - 常総市役所からイベント情報を取得中...
+2025-08-01 10:06:54,354 - INFO - 龍ケ崎市役所からイベント情報を取得中...
+2025-08-01 10:07:00,526 - WARNING - データ抽出エラー: Message: unknown error: unsupported protocol
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x0000000102f5cb38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x0000000102f54aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x0000000102aa633c cxxbridge1$string$len + 90648
+3   chromedriver                        0x0000000102aa92ec cxxbridge1$string$len + 102856
+4   chromedriver                        0x0000000102b2f308 cxxbridge1$string$len + 651748
+5   chromedriver                        0x0000000102b2e880 cxxbridge1$string$len + 649052
+6   chromedriver                        0x0000000102ae1784 cxxbridge1$string$len + 333408
+7   chromedriver                        0x0000000102f1feb4 cxxbridge1$str$ptr + 2473124
+8   chromedriver                        0x0000000102f23120 cxxbridge1$str$ptr + 2486032
+9   chromedriver                        0x0000000102f016b4 cxxbridge1$str$ptr + 2348196
+10  chromedriver                        0x0000000102f239dc cxxbridge1$str$ptr + 2488268
+11  chromedriver                        0x0000000102ef2730 cxxbridge1$str$ptr + 2286880
+12  chromedriver                        0x0000000102f435f8 cxxbridge1$str$ptr + 2618344
+13  chromedriver                        0x0000000102f43784 cxxbridge1$str$ptr + 2618740
+14  chromedriver                        0x0000000102f546e4 cxxbridge1$str$ptr + 2688212
+15  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+16  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:07:04,499 - INFO - 古河市役所からイベント情報を取得中...
+2025-08-01 10:07:05,765 - ERROR - リンク検索エラー: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x0000000100e30b38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x0000000100e28aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x000000010097a33c cxxbridge1$string$len + 90648
+3   chromedriver                        0x0000000100972380 cxxbridge1$string$len + 57948
+4   chromedriver                        0x00000001009653d4 cxxbridge1$string$len + 4784
+5   chromedriver                        0x0000000100966dd8 cxxbridge1$string$len + 11444
+6   chromedriver                        0x0000000100965828 cxxbridge1$string$len + 5892
+7   chromedriver                        0x000000010096517c cxxbridge1$string$len + 4184
+8   chromedriver                        0x0000000100964ec8 cxxbridge1$string$len + 3492
+9   chromedriver                        0x0000000100962c80 chromedriver + 191616
+10  chromedriver                        0x00000001009636dc chromedriver + 194268
+11  chromedriver                        0x000000010097d3a0 cxxbridge1$string$len + 103036
+12  chromedriver                        0x0000000100a03308 cxxbridge1$string$len + 651748
+13  chromedriver                        0x0000000100a02880 cxxbridge1$string$len + 649052
+14  chromedriver                        0x00000001009b5784 cxxbridge1$string$len + 333408
+15  chromedriver                        0x0000000100df3eb4 cxxbridge1$str$ptr + 2473124
+16  chromedriver                        0x0000000100df7120 cxxbridge1$str$ptr + 2486032
+17  chromedriver                        0x0000000100dd56b4 cxxbridge1$str$ptr + 2348196
+18  chromedriver                        0x0000000100df79dc cxxbridge1$str$ptr + 2488268
+19  chromedriver                        0x0000000100dc6730 cxxbridge1$str$ptr + 2286880
+20  chromedriver                        0x0000000100e175f8 cxxbridge1$str$ptr + 2618344
+21  chromedriver                        0x0000000100e17784 cxxbridge1$str$ptr + 2618740
+22  chromedriver                        0x0000000100e286e4 cxxbridge1$str$ptr + 2688212
+23  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+24  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:07:08,834 - INFO - 坂東市役所からイベント情報を取得中...
+2025-08-01 10:07:27,820 - ERROR - リンク検索エラー: Message: unknown error: net::ERR_ADDRESS_UNREACHABLE
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x00000001034c4b38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x00000001034bcaa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x000000010300e33c cxxbridge1$string$len + 90648
+3   chromedriver                        0x0000000103006380 cxxbridge1$string$len + 57948
+4   chromedriver                        0x0000000102ff93d4 cxxbridge1$string$len + 4784
+5   chromedriver                        0x0000000102ffadd8 cxxbridge1$string$len + 11444
+6   chromedriver                        0x0000000102ff9828 cxxbridge1$string$len + 5892
+7   chromedriver                        0x0000000102ff917c cxxbridge1$string$len + 4184
+8   chromedriver                        0x0000000102ff8ec8 cxxbridge1$string$len + 3492
+9   chromedriver                        0x0000000102ff6c80 chromedriver + 191616
+10  chromedriver                        0x0000000102ff76dc chromedriver + 194268
+11  chromedriver                        0x00000001030113a0 cxxbridge1$string$len + 103036
+12  chromedriver                        0x0000000103097308 cxxbridge1$string$len + 651748
+13  chromedriver                        0x0000000103096880 cxxbridge1$string$len + 649052
+14  chromedriver                        0x0000000103049784 cxxbridge1$string$len + 333408
+15  chromedriver                        0x0000000103487eb4 cxxbridge1$str$ptr + 2473124
+16  chromedriver                        0x000000010348b120 cxxbridge1$str$ptr + 2486032
+17  chromedriver                        0x00000001034696b4 cxxbridge1$str$ptr + 2348196
+18  chromedriver                        0x000000010348b9dc cxxbridge1$str$ptr + 2488268
+19  chromedriver                        0x000000010345a730 cxxbridge1$str$ptr + 2286880
+20  chromedriver                        0x00000001034ab5f8 cxxbridge1$str$ptr + 2618344
+21  chromedriver                        0x00000001034ab784 cxxbridge1$str$ptr + 2618740
+22  chromedriver                        0x00000001034bc6e4 cxxbridge1$str$ptr + 2688212
+23  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+24  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:07:30,914 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,915 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,916 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,917 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,918 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,918 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,918 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,918 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,919 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,920 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,921 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,921 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,921 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,922 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,922 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,922 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,922 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,922 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,923 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,924 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,925 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,926 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,928 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,928 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,928 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,928 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,928 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,929 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,930 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,931 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,932 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,933 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,933 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,933 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,933 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,933 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,934 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,934 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,934 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,934 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,935 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,936 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,937 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,938 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: no such column: updated_at
+2025-08-01 10:07:30,939 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,940 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,940 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,940 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,940 - ERROR - イベント保存エラー: table events has no column named source_city
+2025-08-01 10:07:30,940 - INFO - イベント保存完了: 新規0件, 更新0件
+2025-08-01 10:07:30,942 - INFO - 毎日スクレイピング完了: 189件のイベントを処理
+2025-08-01 10:09:26,620 - INFO - データベース初期化完了
+2025-08-01 10:09:51,758 - INFO - データベース初期化完了
+2025-08-01 10:10:43,203 - INFO - データベース初期化完了
+2025-08-01 10:11:18,755 - INFO - データベース初期化完了
+2025-08-01 10:11:18,755 - INFO - 毎日スクレイピング開始
+2025-08-01 10:11:18,755 - INFO - つくばみらい市役所からイベント情報を取得中...
+2025-08-01 10:11:29,329 - INFO - つくば市役所からイベント情報を取得中...
+2025-08-01 10:11:43,163 - INFO - 守谷市役所からイベント情報を取得中...
+2025-08-01 10:11:51,605 - INFO - 取手市役所からイベント情報を取得中...
+2025-08-01 10:12:01,683 - INFO - 常総市役所からイベント情報を取得中...
+2025-08-01 10:12:16,219 - INFO - 龍ケ崎市役所からイベント情報を取得中...
+2025-08-01 10:12:26,052 - INFO - 古河市役所からイベント情報を取得中...
+2025-08-01 10:12:27,205 - ERROR - リンク検索エラー: Message: unknown error: net::ERR_NAME_NOT_RESOLVED
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x0000000100d60b38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x0000000100d58aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x00000001008aa33c cxxbridge1$string$len + 90648
+3   chromedriver                        0x00000001008a2380 cxxbridge1$string$len + 57948
+4   chromedriver                        0x00000001008953d4 cxxbridge1$string$len + 4784
+5   chromedriver                        0x0000000100896dd8 cxxbridge1$string$len + 11444
+6   chromedriver                        0x0000000100895828 cxxbridge1$string$len + 5892
+7   chromedriver                        0x000000010089517c cxxbridge1$string$len + 4184
+8   chromedriver                        0x0000000100894ec8 cxxbridge1$string$len + 3492
+9   chromedriver                        0x0000000100892c80 chromedriver + 191616
+10  chromedriver                        0x00000001008936dc chromedriver + 194268
+11  chromedriver                        0x00000001008ad3a0 cxxbridge1$string$len + 103036
+12  chromedriver                        0x0000000100933308 cxxbridge1$string$len + 651748
+13  chromedriver                        0x0000000100932880 cxxbridge1$string$len + 649052
+14  chromedriver                        0x00000001008e5784 cxxbridge1$string$len + 333408
+15  chromedriver                        0x0000000100d23eb4 cxxbridge1$str$ptr + 2473124
+16  chromedriver                        0x0000000100d27120 cxxbridge1$str$ptr + 2486032
+17  chromedriver                        0x0000000100d056b4 cxxbridge1$str$ptr + 2348196
+18  chromedriver                        0x0000000100d279dc cxxbridge1$str$ptr + 2488268
+19  chromedriver                        0x0000000100cf6730 cxxbridge1$str$ptr + 2286880
+20  chromedriver                        0x0000000100d475f8 cxxbridge1$str$ptr + 2618344
+21  chromedriver                        0x0000000100d47784 cxxbridge1$str$ptr + 2618740
+22  chromedriver                        0x0000000100d586e4 cxxbridge1$str$ptr + 2688212
+23  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+24  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:12:30,276 - INFO - 坂東市役所からイベント情報を取得中...
+2025-08-01 10:12:50,023 - ERROR - リンク検索エラー: Message: unknown error: net::ERR_ADDRESS_UNREACHABLE
+  (Session info: chrome=138.0.7204.184)
+Stacktrace:
+0   chromedriver                        0x000000010087cb38 cxxbridge1$str$ptr + 2722088
+1   chromedriver                        0x0000000100874aa8 cxxbridge1$str$ptr + 2689176
+2   chromedriver                        0x00000001003c633c cxxbridge1$string$len + 90648
+3   chromedriver                        0x00000001003be380 cxxbridge1$string$len + 57948
+4   chromedriver                        0x00000001003b13d4 cxxbridge1$string$len + 4784
+5   chromedriver                        0x00000001003b2dd8 cxxbridge1$string$len + 11444
+6   chromedriver                        0x00000001003b1828 cxxbridge1$string$len + 5892
+7   chromedriver                        0x00000001003b117c cxxbridge1$string$len + 4184
+8   chromedriver                        0x00000001003b0ec8 cxxbridge1$string$len + 3492
+9   chromedriver                        0x00000001003aec80 chromedriver + 191616
+10  chromedriver                        0x00000001003af6dc chromedriver + 194268
+11  chromedriver                        0x00000001003c93a0 cxxbridge1$string$len + 103036
+12  chromedriver                        0x000000010044f308 cxxbridge1$string$len + 651748
+13  chromedriver                        0x000000010044e880 cxxbridge1$string$len + 649052
+14  chromedriver                        0x0000000100401784 cxxbridge1$string$len + 333408
+15  chromedriver                        0x000000010083feb4 cxxbridge1$str$ptr + 2473124
+16  chromedriver                        0x0000000100843120 cxxbridge1$str$ptr + 2486032
+17  chromedriver                        0x00000001008216b4 cxxbridge1$str$ptr + 2348196
+18  chromedriver                        0x00000001008439dc cxxbridge1$str$ptr + 2488268
+19  chromedriver                        0x0000000100812730 cxxbridge1$str$ptr + 2286880
+20  chromedriver                        0x00000001008635f8 cxxbridge1$str$ptr + 2618344
+21  chromedriver                        0x0000000100863784 cxxbridge1$str$ptr + 2618740
+22  chromedriver                        0x00000001008746e4 cxxbridge1$str$ptr + 2688212
+23  libsystem_pthread.dylib             0x000000019f2aa06c _pthread_start + 148
+24  libsystem_pthread.dylib             0x000000019f2a4e2c thread_start + 8
+
+2025-08-01 10:12:53,116 - INFO - イベント保存完了: 新規33件, 更新0件
+2025-08-01 10:12:53,117 - INFO - 毎日スクレイピング完了: 33件のイベントを処理
+2025-08-01 10:13:12,702 - INFO - データベース初期化完了

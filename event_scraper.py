@@ -248,7 +248,7 @@ class EventScraper:
             for link in event_links:
                 try:
                     event_data = self.extract_event_data(driver, link, source_id, source_info)
-                    if event_data and self.validate_event_data(event_data):
+                    if event_data and self.validate_event_data_strict(event_data):
                         events.append(event_data)
                         
                 except Exception as e:
@@ -274,6 +274,13 @@ class EventScraper:
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
             
+            # より具体的なイベント関連キーワード
+            event_keywords = [
+                'イベント', '行事', '催し', '講座', 'セミナー', 'ワークショップ',
+                '体験', '見学会', '説明会', 'お知らせ', 'event', 'workshop',
+                '文化祭', 'フェスティバル', '祭り', 'コンサート', '展示会'
+            ]
+            
             # ページ内のリンクを取得
             all_links = driver.find_elements(By.TAG_NAME, 'a')
             
@@ -282,8 +289,11 @@ class EventScraper:
                     href = link.get_attribute('href')
                     text = link.text.lower()
                     
-                    if href and any(keyword in text for keyword in source_info['keywords']):
-                        links.append(href)
+                    # より厳密な条件でイベントリンクを判定
+                    if href and any(keyword in text for keyword in event_keywords):
+                        # 市役所のドメイン内のリンクのみを対象
+                        if source_info['url'].replace('https://', '').replace('http://', '').split('/')[0] in href:
+                            links.append(href)
                         
                 except Exception as e:
                     continue
@@ -296,17 +306,46 @@ class EventScraper:
                         EC.presence_of_element_located((By.TAG_NAME, "body"))
                     )
                     
+                    # イベントページからより詳細なリンクを取得
                     event_page_links = driver.find_elements(By.TAG_NAME, 'a')
                     for link in event_page_links:
                         try:
                             href = link.get_attribute('href')
-                            if href and href not in links:
-                                links.append(href)
+                            text = link.text.lower()
+                            
+                            # 日付や時間を含むリンクを優先
+                            if href and (any(keyword in text for keyword in event_keywords) or 
+                                       any(date_word in text for date_word in ['月', '日', '時', '分'])):
+                                if href not in links:
+                                    links.append(href)
                         except Exception:
                             continue
                             
                 except Exception as e:
                     logging.warning(f"イベントページアクセスエラー: {e}")
+            
+            # お知らせページもチェック
+            try:
+                notice_url = source_info['url'].rstrip('/') + '/soshiki/1/oshirase.html'
+                driver.get(notice_url)
+                WebDriverWait(driver, 10).until(
+                    EC.presence_of_element_located((By.TAG_NAME, "body"))
+                )
+                
+                notice_links = driver.find_elements(By.TAG_NAME, 'a')
+                for link in notice_links:
+                    try:
+                        href = link.get_attribute('href')
+                        text = link.text.lower()
+                        
+                        if href and any(keyword in text for keyword in event_keywords):
+                            if href not in links:
+                                links.append(href)
+                    except Exception:
+                        continue
+                        
+            except Exception as e:
+                logging.warning(f"お知らせページアクセスエラー: {e}")
             
         except Exception as e:
             logging.error(f"リンク検索エラー: {e}")
@@ -342,23 +381,39 @@ class EventScraper:
                 'source_city': source_info['name']
             }
             
-            return event_data if event_data['title'] else None
+            # より厳密な検証
+            if self.validate_event_data_strict(event_data):
+                return event_data
+            else:
+                return None
             
         except Exception as e:
             logging.warning(f"データ抽出エラー: {e}")
             return None
     
-    def validate_event_data(self, event_data):
-        """イベントデータの検証"""
+    def validate_event_data_strict(self, event_data):
+        """より厳密なイベントデータ検証"""
         if not event_data.get('title'):
+            return False
+        
+        # タイトルが一般的すぎる場合は除外
+        generic_titles = ['お知らせ', 'トップページ', 'このサイトについて', 'Translate', 'メニュー']
+        if event_data['title'] in generic_titles:
             return False
         
         # 日付の妥当性チェック
         if event_data.get('date'):
             try:
-                datetime.strptime(event_data['date'], '%Y-%m-%d')
+                event_date = datetime.strptime(event_data['date'], '%Y-%m-%d')
+                # 過去の日付は除外（ただし1ヶ月前までは許可）
+                if event_date < datetime.now() - timedelta(days=30):
+                    return False
             except ValueError:
                 return False
+        
+        # 説明文が短すぎる場合は除外
+        if event_data.get('description') and len(event_data['description']) < 10:
+            return False
         
         return True
     
