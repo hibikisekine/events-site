@@ -2,9 +2,18 @@
 
 let currentEvents = [];
 let currentWeather = null;
+let multiCityWeather = {};
 
 // APIエンドポイント（Netlify用）
 const API_BASE = 'https://tsukuba.netlify.app/api';
+
+// 地域リスト
+const CITIES = [
+    { name: 'つくば市', query: 'Tsukuba,Japan' },
+    { name: 'つくばみらい市', query: 'Tsukubamirai,Japan' },
+    { name: '取手市', query: 'Toride,Japan' },
+    { name: '守谷市', query: 'Moriya,Japan' }
+];
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
@@ -40,8 +49,8 @@ async function loadData() {
         // サンプルデータを使用（APIがない場合）
         loadSampleData();
         
-        // 天気データの更新
-        await loadWeatherData();
+        // 複数地域の天気データの更新
+        await loadMultiCityWeatherData();
         
         console.log('✅ データ読み込み完了');
     } catch (error) {
@@ -50,68 +59,146 @@ async function loadData() {
     }
 }
 
-// 天気データ読み込み
-async function loadWeatherData() {
+// 複数地域の天気データ読み込み
+async function loadMultiCityWeatherData() {
     try {
         // WeatherAPIのキーを設定
         const API_KEY = '88ed0e701cfc4c7fb0d13301253107';
         
-        // つくば市の天気データを取得（WeatherAPI.com）
-        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Tsukuba,Japan&aqi=no`);
-        
-        if (response.ok) {
-            const weatherData = await response.json();
-            console.log('WeatherAPI レスポンス:', weatherData);
-            
-            currentWeather = {
-                current: {
-                    temperature: Math.round(weatherData.current.temp_c),
-                    condition: weatherData.current.condition.text,
-                    humidity: weatherData.current.humidity,
-                    rain_probability: weatherData.current.precip_mm > 0 ? Math.round(weatherData.current.precip_mm * 10) : 0
-                },
-                forecast: [
-                    {
-                        date: new Date().toISOString().split('T')[0],
-                        condition: weatherData.current.condition.text,
-                        temperature: Math.round(weatherData.current.temp_c),
-                        humidity: weatherData.current.humidity,
-                        rain_probability: weatherData.current.precip_mm > 0 ? Math.round(weatherData.current.precip_mm * 10) : 0
+        // 各都市の天気データを並行して取得
+        const weatherPromises = CITIES.map(async (city) => {
+            try {
+                const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city.query}&aqi=no`);
+                
+                if (response.ok) {
+                    const weatherData = await response.json();
+                    return {
+                        city: city.name,
+                        data: {
+                            temperature: Math.round(weatherData.current.temp_c),
+                            condition: weatherData.current.condition.text,
+                            humidity: weatherData.current.humidity,
+                            rain_probability: weatherData.current.precip_mm > 0 ? Math.round(weatherData.current.precip_mm * 10) : 0,
+                            icon: weatherData.current.condition.icon
+                        }
+                    };
+                } else {
+                    console.log(`⚠️ ${city.name}の天気データ取得エラー`);
+                    return {
+                        city: city.name,
+                        data: {
+                            temperature: '--',
+                            condition: 'データ取得中',
+                            humidity: '--',
+                            rain_probability: 0,
+                            icon: '113'
+                        }
+                    };
+                }
+            } catch (error) {
+                console.log(`⚠️ ${city.name}の天気APIエラー:`, error);
+                return {
+                    city: city.name,
+                    data: {
+                        temperature: '--',
+                        condition: 'データ取得中',
+                        humidity: '--',
+                        rain_probability: 0,
+                        icon: '113'
                     }
-                ]
-            };
-            console.log('✅ 実際の天気データを取得しました');
-        } else {
-            console.log('⚠️ 天気APIエラー、サンプルデータを使用');
-            loadSampleWeatherData();
-        }
+                };
+            }
+        });
+        
+        const weatherResults = await Promise.all(weatherPromises);
+        
+        // 結果をオブジェクトに格納
+        weatherResults.forEach(result => {
+            multiCityWeather[result.city] = result.data;
+        });
+        
+        console.log('✅ 複数地域の天気データを取得しました');
+        
     } catch (error) {
-        console.log('⚠️ 天気APIエラー、サンプルデータを使用:', error);
-        loadSampleWeatherData();
+        console.log('⚠️ 複数地域天気APIエラー、サンプルデータを使用:', error);
+        loadSampleMultiCityWeatherData();
     }
     
-    updateWeatherDisplay();
+    updateMultiCityWeatherDisplay();
 }
 
-// サンプル天気データ
-function loadSampleWeatherData() {
-    currentWeather = {
-        current: {
+// サンプル複数地域天気データ
+function loadSampleMultiCityWeatherData() {
+    multiCityWeather = {
+        'つくば市': {
             temperature: 25,
             condition: '晴れ',
             humidity: 60,
-            rain_probability: 10
+            rain_probability: 10,
+            icon: '113'
         },
-        forecast: [
-            {
-                date: new Date().toISOString().split('T')[0],
-                condition: '晴れ',
-                temperature: 25,
-                humidity: 60,
-                rain_probability: 10
-            }
-        ]
+        'つくばみらい市': {
+            temperature: 24,
+            condition: '曇り',
+            humidity: 65,
+            rain_probability: 20,
+            icon: '116'
+        },
+        '取手市': {
+            temperature: 26,
+            condition: '晴れ',
+            humidity: 55,
+            rain_probability: 5,
+            icon: '113'
+        },
+        '守谷市': {
+            temperature: 23,
+            condition: '小雨',
+            humidity: 75,
+            rain_probability: 40,
+            icon: '296'
+        }
     };
+}
+
+// 複数地域の天気表示更新
+function updateMultiCityWeatherDisplay() {
+    const weatherContainer = document.getElementById('weather-info');
+    if (!weatherContainer) return;
+    
+    if (Object.keys(multiCityWeather).length === 0) {
+        weatherContainer.innerHTML = `
+            <div class="weather-details">
+                <div class="weather-main">天気情報を取得中...</div>
+                <div class="weather-temp">--°C</div>
+                <div class="weather-humidity">湿度: --%</div>
+                <div class="weather-rain">降水確率: --%</div>
+            </div>
+        `;
+        return;
+    }
+    
+    // 複数地域の天気を表示
+    const weatherHTML = Object.entries(multiCityWeather).map(([city, weather]) => `
+        <div class="city-weather">
+            <div class="city-name">${city}</div>
+            <div class="weather-icon">
+                <img src="https:${weather.icon}" alt="${weather.condition}" width="32" height="32">
+            </div>
+            <div class="weather-details">
+                <div class="weather-main">${weather.condition}</div>
+                <div class="weather-temp">${weather.temperature}°C</div>
+                <div class="weather-humidity">湿度: ${weather.humidity}%</div>
+                <div class="weather-rain">降水確率: ${weather.rain_probability}%</div>
+            </div>
+        </div>
+    `).join('');
+    
+    weatherContainer.innerHTML = `
+        <div class="multi-city-weather">
+            ${weatherHTML}
+        </div>
+    `;
 }
 
 // サンプルデータ読み込み
@@ -431,67 +518,6 @@ function showEventDetails(eventId) {
     }
     
     modal.show();
-}
-
-// 天気表示更新
-function updateWeatherDisplay() {
-    const weatherInfo = document.getElementById('weather-info');
-    const weatherIcon = document.getElementById('weather-icon');
-    
-    if (!weatherInfo || !weatherIcon) return;
-    
-    if (!currentWeather) {
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">天気情報を取得中...</div>
-                <div class="weather-temp">--°C</div>
-                <div class="weather-humidity">湿度: --%</div>
-                <div class="weather-rain">降水確率: --%</div>
-            </div>
-        `;
-        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
-        return;
-    }
-    
-    const today = new Date().toISOString().split('T')[0];
-    const todayWeather = currentWeather.forecast ? currentWeather.forecast.find(f => f.date === today) : null;
-    
-    if (todayWeather) {
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">${todayWeather.condition || '晴れ'}</div>
-                <div class="weather-temp">${todayWeather.temperature || '--'}°C</div>
-                <div class="weather-humidity">湿度: ${todayWeather.humidity || '--'}%</div>
-                <div class="weather-rain">降水確率: ${Math.round(todayWeather.rain_probability || 0)}%</div>
-            </div>
-        `;
-        updateWeatherIcon(weatherIcon, todayWeather);
-    } else {
-        weatherInfo.innerHTML = `
-            <div class="weather-details">
-                <div class="weather-main">天気情報を取得中...</div>
-                <div class="weather-temp">--°C</div>
-                <div class="weather-humidity">湿度: --%</div>
-                <div class="weather-rain">降水確率: --%</div>
-            </div>
-        `;
-        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
-    }
-}
-
-// 天気アイコン更新
-function updateWeatherIcon(iconElement, weather) {
-    const condition = weather.condition || '';
-    const isRainy = condition.includes('雨') || condition.includes('雪');
-    const isCloudy = condition.includes('曇');
-    
-    if (isRainy) {
-        iconElement.innerHTML = '<i class="fas fa-cloud-rain fa-3x text-info"></i>';
-    } else if (isCloudy) {
-        iconElement.innerHTML = '<i class="fas fa-cloud fa-3x text-secondary"></i>';
-    } else {
-        iconElement.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
-    }
 }
 
 // データ更新
