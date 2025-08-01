@@ -62,11 +62,17 @@ async function loadData() {
 // スクレイピングされたイベントデータを読み込み
 async function loadScrapedEvents() {
     try {
+        console.log('🔍 スクレイピングデータを取得中...');
+        
         // Netlify Functionsからデータを取得
         const response = await fetch(`${API_BASE}/events`);
         
+        console.log('📡 APIレスポンス:', response.status, response.statusText);
+        
         if (response.ok) {
             const data = await response.json();
+            console.log('📊 取得したデータ:', data);
+            
             if (data.events && data.events.length > 0) {
                 console.log(`✅ スクレイピングデータを取得: ${data.events.length}件`);
                 
@@ -91,14 +97,18 @@ async function loadScrapedEvents() {
                 
                 updateEventsDisplay();
                 return;
+            } else {
+                console.log('⚠️ イベントデータが空です');
             }
+        } else {
+            console.log('❌ APIエラー:', response.status, response.statusText);
         }
         
         console.log('⚠️ スクレイピングデータが取得できませんでした');
         loadSampleData();
         
     } catch (error) {
-        console.log('⚠️ スクレイピングデータ取得エラー:', error);
+        console.log('❌ スクレイピングデータ取得エラー:', error);
         loadSampleData();
     }
 }
