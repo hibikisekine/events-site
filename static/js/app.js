@@ -53,28 +53,30 @@ async function loadData() {
 // 天気データ読み込み
 async function loadWeatherData() {
     try {
-        // 実際のAPIキーを設定してください
-        const API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // ここに実際のAPIキーを入力
+        // WeatherAPIのキーを設定
+        const API_KEY = '88ed0e701cfc4c7fb0d13301253107';
         
-        // つくば市の天気データを取得
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tsukuba,JP&appid=${API_KEY}&units=metric&lang=ja`);
+        // つくば市の天気データを取得（WeatherAPI.com）
+        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Tsukuba,Japan&aqi=no`);
         
         if (response.ok) {
             const weatherData = await response.json();
+            console.log('WeatherAPI レスポンス:', weatherData);
+            
             currentWeather = {
                 current: {
-                    temperature: Math.round(weatherData.main.temp),
-                    condition: weatherData.weather[0].description,
-                    humidity: weatherData.main.humidity,
-                    rain_probability: weatherData.rain ? Math.round(weatherData.rain['1h'] * 100) : 0
+                    temperature: Math.round(weatherData.current.temp_c),
+                    condition: weatherData.current.condition.text,
+                    humidity: weatherData.current.humidity,
+                    rain_probability: weatherData.current.precip_mm > 0 ? Math.round(weatherData.current.precip_mm * 10) : 0
                 },
                 forecast: [
                     {
                         date: new Date().toISOString().split('T')[0],
-                        condition: weatherData.weather[0].description,
-                        temperature: Math.round(weatherData.main.temp),
-                        humidity: weatherData.main.humidity,
-                        rain_probability: weatherData.rain ? Math.round(weatherData.rain['1h'] * 100) : 0
+                        condition: weatherData.current.condition.text,
+                        temperature: Math.round(weatherData.current.temp_c),
+                        humidity: weatherData.current.humidity,
+                        rain_probability: weatherData.current.precip_mm > 0 ? Math.round(weatherData.current.precip_mm * 10) : 0
                     }
                 ]
             };
