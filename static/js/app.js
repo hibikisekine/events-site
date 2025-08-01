@@ -1,7 +1,6 @@
 // 今日行けるイベントサイト - JavaScript
 
 let currentEvents = [];
-let currentWeather = null;
 let multiCityWeather = {};
 
 // APIエンドポイント（Netlify用）
@@ -46,8 +45,8 @@ async function loadData() {
     try {
         console.log('📊 データを読み込み中...');
         
-        // サンプルデータを使用（APIがない場合）
-        loadSampleData();
+        // 実際のスクレイピングデータを試行
+        await loadScrapedEvents();
         
         // 複数地域の天気データの更新
         await loadMultiCityWeatherData();
@@ -55,7 +54,33 @@ async function loadData() {
         console.log('✅ データ読み込み完了');
     } catch (error) {
         console.error('❌ データ読み込みエラー:', error);
-        showError('データの読み込みに失敗しました');
+        // エラー時はサンプルデータを使用
+        loadSampleData();
+    }
+}
+
+// スクレイピングされたイベントデータを読み込み
+async function loadScrapedEvents() {
+    try {
+        // Netlify Functionsからデータを取得
+        const response = await fetch(`${API_BASE}/events`);
+        
+        if (response.ok) {
+            const events = await response.json();
+            if (events && events.length > 0) {
+                console.log(`✅ スクレイピングデータを取得: ${events.length}件`);
+                currentEvents = events;
+                updateEventsDisplay();
+                return;
+            }
+        }
+        
+        console.log('⚠️ スクレイピングデータが取得できませんでした');
+        loadSampleData();
+        
+    } catch (error) {
+        console.log('⚠️ スクレイピングデータ取得エラー:', error);
+        loadSampleData();
     }
 }
 
