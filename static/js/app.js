@@ -53,8 +53,11 @@ async function loadData() {
 // 天気データ読み込み
 async function loadWeatherData() {
     try {
+        // 実際のAPIキーを設定してください
+        const API_KEY = 'YOUR_OPENWEATHER_API_KEY'; // ここに実際のAPIキーを入力
+        
         // つくば市の天気データを取得
-        const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Tsukuba,JP&appid=YOUR_API_KEY&units=metric&lang=ja');
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Tsukuba,JP&appid=${API_KEY}&units=metric&lang=ja`);
         
         if (response.ok) {
             const weatherData = await response.json();
@@ -75,12 +78,13 @@ async function loadWeatherData() {
                     }
                 ]
             };
+            console.log('✅ 実際の天気データを取得しました');
         } else {
-            // APIキーがない場合はサンプルデータを使用
+            console.log('⚠️ 天気APIエラー、サンプルデータを使用');
             loadSampleWeatherData();
         }
     } catch (error) {
-        console.log('天気APIエラー、サンプルデータを使用:', error);
+        console.log('⚠️ 天気APIエラー、サンプルデータを使用:', error);
         loadSampleWeatherData();
     }
     
@@ -180,6 +184,104 @@ function loadSampleData() {
             child_friendly: false,
             is_indoor: true,
             url: 'https://example.com/event5'
+        },
+        {
+            id: 6,
+            title: '常総市農業体験',
+            date: '2025-08-22',
+            time: '09:00',
+            location: '常総市農業公園',
+            description: '農業体験イベントです。野菜の収穫体験ができます。',
+            category: '地域',
+            is_free: false,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: false,
+            url: 'https://example.com/event6'
+        },
+        {
+            id: 7,
+            title: '龍ヶ崎市音楽祭',
+            date: '2025-08-28',
+            time: '18:00',
+            location: '龍ヶ崎市文化会館',
+            description: '地元アーティストによる音楽祭です。',
+            category: '文化',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event7'
+        },
+        {
+            id: 8,
+            title: '古河市歴史散策',
+            date: '2025-09-10',
+            time: '10:00',
+            location: '古河市歴史博物館',
+            description: '古河市の歴史を学ぶ散策イベントです。',
+            category: '文化',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: false,
+            url: 'https://example.com/event8'
+        },
+        {
+            id: 9,
+            title: '坂東市スポーツ教室',
+            date: '2025-08-18',
+            time: '14:30',
+            location: '坂東市体育館',
+            description: '子供向けスポーツ教室です。',
+            category: 'スポーツ',
+            is_free: false,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event9'
+        },
+        {
+            id: 10,
+            title: 'つくば市科学実験教室',
+            date: '2025-09-12',
+            time: '13:00',
+            location: 'つくば市科学館',
+            description: '子供向け科学実験教室です。',
+            category: '教育',
+            is_free: false,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event10'
+        },
+        {
+            id: 11,
+            title: '守谷市フリーマーケット',
+            date: '2025-08-24',
+            time: '09:00',
+            location: '守谷市中央公園',
+            description: '地域のフリーマーケットです。',
+            category: '地域',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: false,
+            url: 'https://example.com/event11'
+        },
+        {
+            id: 12,
+            title: '取手市子育て相談会',
+            date: '2025-09-08',
+            time: '10:00',
+            location: '取手市子育て支援センター',
+            description: '子育て相談会です。専門家が相談に応じます。',
+            category: '子育て',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: true,
+            url: 'https://example.com/event12'
         }
     ];
     
