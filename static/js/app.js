@@ -3,7 +3,7 @@
 let currentEvents = [];
 let multiCityWeather = {};
 
-// APIエンドポイント（Netlify用）
+// APIエンドポイント（静的JSONファイル使用）
 const API_BASE = 'https://tsukuba.netlify.app/api';
 
 // 地域リスト
@@ -64,8 +64,8 @@ async function loadScrapedEvents() {
     try {
         console.log('🔍 スクレイピングデータを取得中...');
         
-        // Netlify Functionsからデータを取得
-        const response = await fetch(`${API_BASE}/events`);
+        // 静的JSONファイルからデータを取得
+        const response = await fetch(`${API_BASE}/events.json`);
         
         console.log('📡 APIレスポンス:', response.status, response.statusText);
         
@@ -103,10 +103,7 @@ async function loadScrapedEvents() {
         } else {
             console.log('❌ APIエラー:', response.status, response.statusText);
         }
-        
-        console.log('⚠️ スクレイピングデータが取得できませんでした');
-        loadSampleData();
-        
+        loadSampleData(); // Fallback to sample data
     } catch (error) {
         console.log('❌ スクレイピングデータ取得エラー:', error);
         loadSampleData();
