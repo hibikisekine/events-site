@@ -5,7 +5,7 @@ load_dotenv()
 
 # X (Twitter) API認証情報
 X_API_KEY = "2Lmr61n73q3deXyP7YPfJPg6o"
-X_API_SECRET = ""  # API Secret Keyを入力
+X_API_SECRET = "AAAAAAAAAAAAAAAAAAAAAHNr3QEAAAAA8noVrOaYdxumWQ8fpFC09RBrosQ%3D9SuQoXs4wBcS9Ww0fej30rSNiWRSpxn2gvMmNIl5CCzxCdGV8J"
 X_ACCESS_TOKEN = ""  # Access Tokenを入力
 X_ACCESS_TOKEN_SECRET = ""  # Access Token Secretを入力
 
