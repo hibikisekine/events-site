@@ -66,10 +66,29 @@ async function loadScrapedEvents() {
         const response = await fetch(`${API_BASE}/events`);
         
         if (response.ok) {
-            const events = await response.json();
-            if (events && events.length > 0) {
-                console.log(`✅ スクレイピングデータを取得: ${events.length}件`);
-                currentEvents = events;
+            const data = await response.json();
+            if (data.events && data.events.length > 0) {
+                console.log(`✅ スクレイピングデータを取得: ${data.events.length}件`);
+                
+                // データベースの形式に合わせて変換
+                currentEvents = data.events.map(event => ({
+                    id: event.id,
+                    title: event.title,
+                    date: event.date,
+                    time: event.time,
+                    location: event.location,
+                    description: event.description,
+                    category: event.category,
+                    is_free: event.is_free,
+                    has_parking: event.has_parking,
+                    child_friendly: event.child_friendly,
+                    is_indoor: event.is_indoor,
+                    weather_dependent: event.weather_dependent,
+                    rain_cancellation: event.rain_cancellation,
+                    source_url: event.source_url,
+                    source_city: event.source_city
+                }));
+                
                 updateEventsDisplay();
                 return;
             }

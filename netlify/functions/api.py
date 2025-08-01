@@ -1,12 +1,10 @@
 import json
 import sqlite3
+from datetime import datetime, timedelta
 import os
-from datetime import datetime
-from weather_simple import WeatherSimple
-from event_filter import EventFilter
 
 def handler(event, context):
-    """Netlify Function for API endpoints"""
+    """Netlify Function handler"""
     
     # CORS headers
     headers = {
@@ -23,17 +21,15 @@ def handler(event, context):
             'body': ''
         }
     
-    path = event['path']
+    path = event.get('path', '').split('/')[-1]
     
     try:
-        if path == '/api/events':
-            return get_events(headers)
-        elif path == '/api/filter':
-            return filter_events(event, headers)
-        elif path == '/api/weather':
-            return get_weather(headers)
-        elif path == '/health':
-            return health_check(headers)
+        if path == 'events':
+            return get_events(event, headers)
+        elif path == 'weather':
+            return get_weather(event, headers)
+        elif path == 'stats':
+            return get_stats(event, headers)
         else:
             return {
                 'statusCode': 404,
@@ -47,143 +43,173 @@ def handler(event, context):
             'body': json.dumps({'error': str(e)})
         }
 
-def get_events(headers):
-    """Get all events with weather data"""
+def get_events(event, headers):
+    """スクレイピングされたイベントデータを取得"""
     try:
-        # Get weather data
-        weather_api = WeatherSimple()
-        weather_data = weather_api.get_weather_forecast()
+        # データベースファイルのパス
+        db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'events.db')
         
-        # Get events from database
-        conn = sqlite3.connect('events.db')
+        # データベースに接続
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
+        
+        # アクティブなイベントを取得
         cursor.execute('''
-            SELECT * FROM events 
-            WHERE date >= date('now') 
-            ORDER BY date ASC, time ASC
+            SELECT id, title, description, date, time, location, category,
+                   is_indoor, is_free, has_parking, child_friendly,
+                   weather_dependent, rain_cancellation, source_url, source_city
+            FROM events 
+            WHERE is_active = 1 
+            ORDER BY date ASC, created_at DESC
         ''')
-        events = cursor.fetchall()
-        conn.close()
         
-        # Filter events by weather
-        event_filter = EventFilter()
-        filtered_events = event_filter.filter_events_by_weather(events, weather_data)
+        events = []
+        for row in cursor.fetchall():
+            event = {
+                'id': row[0],
+                'title': row[1],
+                'description': row[2] or '',
+                'date': row[3],
+                'time': row[4] or '',
+                'location': row[5] or '',
+                'category': row[6] or 'その他',
+                'is_indoor': bool(row[7]) if row[7] is not None else None,
+                'is_free': bool(row[8]) if row[8] is not None else None,
+                'has_parking': bool(row[9]) if row[9] is not None else False,
+                'child_friendly': bool(row[10]) if row[10] is not None else False,
+                'weather_dependent': bool(row[11]) if row[11] is not None else False,
+                'rain_cancellation': row[12] or None,
+                'source_url': row[13] or '',
+                'source_city': row[14] or ''
+            }
+            events.append(event)
         
-        return {
-            'statusCode': 200,
-            'headers': headers,
-            'body': json.dumps({
-                'events': filtered_events,
-                'weather': weather_data
-            })
-        }
-    except Exception as e:
-        return {
-            'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'error': str(e)})
-        }
-
-def filter_events(event, headers):
-    """Filter events based on parameters"""
-    try:
-        # Parse query parameters
-        query_params = event.get('queryStringParameters', {}) or {}
-        
-        category = query_params.get('category', '')
-        city = query_params.get('city', '')
-        indoor_only = query_params.get('indoor_only', '')
-        outdoor_only = query_params.get('outdoor_only', '')
-        free_only = query_params.get('free_only', '')
-        parking_required = query_params.get('parking_required', '')
-        child_friendly = query_params.get('child_friendly', '')
-        
-        # Build query
-        conn = sqlite3.connect('events.db')
-        cursor = conn.cursor()
-        
-        query = 'SELECT * FROM events WHERE 1=1'
-        params = []
-        
-        if indoor_only:
-            query += ' AND is_indoor = 1'
-        if outdoor_only:
-            query += ' AND is_indoor = 0'
-        if free_only:
-            query += ' AND is_free = 1'
-        if parking_required:
-            query += ' AND has_parking = 1'
-        if child_friendly:
-            query += ' AND child_friendly = 1'
-        if category:
-            query += ' AND category = ?'
-            params.append(category)
-        if city:
-            query += ' AND (location LIKE ? OR location LIKE ?)'
-            params.append(f'%{city}%')
-            params.append(f'%（{city}）%')
-        
-        cursor.execute(query, params)
-        events = cursor.fetchall()
-        conn.close()
-        
-        return {
-            'statusCode': 200,
-            'headers': headers,
-            'body': json.dumps({'events': events})
-        }
-    except Exception as e:
-        return {
-            'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'error': str(e)})
-        }
-
-def get_weather(headers):
-    """Get weather data"""
-    try:
-        weather_api = WeatherSimple()
-        weather_data = weather_api.get_weather_forecast()
-        
-        return {
-            'statusCode': 200,
-            'headers': headers,
-            'body': json.dumps(weather_data)
-        }
-    except Exception as e:
-        return {
-            'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({'error': str(e)})
-        }
-
-def health_check(headers):
-    """Health check endpoint"""
-    try:
-        conn = sqlite3.connect('events.db')
-        cursor = conn.cursor()
-        cursor.execute('SELECT COUNT(*) FROM events')
-        event_count = cursor.fetchone()[0]
         conn.close()
         
         return {
             'statusCode': 200,
             'headers': headers,
             'body': json.dumps({
-                'status': 'healthy',
-                'timestamp': datetime.now().isoformat(),
-                'database': 'connected',
-                'events_count': event_count,
-                'version': '1.0.0'
-            })
-        }
-    except Exception as e:
-        return {
-            'statusCode': 500,
-            'headers': headers,
-            'body': json.dumps({
-                'status': 'unhealthy',
-                'error': str(e),
+                'events': events,
+                'count': len(events),
                 'timestamp': datetime.now().isoformat()
             })
+        }
+        
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': f'Database error: {str(e)}'})
+        }
+
+def get_weather(event, headers):
+    """天気データを取得（WeatherAPI.comを使用）"""
+    try:
+        import requests
+        
+        # WeatherAPI.comのキー
+        API_KEY = '88ed0e701cfc4c7fb0d13301253107'
+        
+        # 複数都市の天気データを取得
+        cities = [
+            {'name': 'つくば市', 'query': 'Tsukuba,Japan'},
+            {'name': 'つくばみらい市', 'query': 'Tsukubamirai,Japan'},
+            {'name': '取手市', 'query': 'Toride,Japan'},
+            {'name': '守谷市', 'query': 'Moriya,Japan'}
+        ]
+        
+        weather_data = {}
+        
+        for city in cities:
+            try:
+                response = requests.get(
+                    f'https://api.weatherapi.com/v1/current.json',
+                    params={
+                        'key': API_KEY,
+                        'q': city['query'],
+                        'aqi': 'no'
+                    },
+                    timeout=10
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    weather_data[city['name']] = {
+                        'temperature': round(data['current']['temp_c']),
+                        'condition': data['current']['condition']['text'],
+                        'humidity': data['current']['humidity'],
+                        'rain_probability': round(data['current']['precip_mm'] * 10) if data['current']['precip_mm'] > 0 else 0,
+                        'icon': data['current']['condition']['icon']
+                    }
+                else:
+                    weather_data[city['name']] = {
+                        'temperature': '--',
+                        'condition': 'データ取得中',
+                        'humidity': '--',
+                        'rain_probability': 0,
+                        'icon': '113'
+                    }
+                    
+            except Exception as e:
+                weather_data[city['name']] = {
+                    'temperature': '--',
+                    'condition': 'データ取得中',
+                    'humidity': '--',
+                    'rain_probability': 0,
+                    'icon': '113'
+                }
+        
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({
+                'weather': weather_data,
+                'timestamp': datetime.now().isoformat()
+            })
+        }
+        
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': f'Weather API error: {str(e)}'})
+        }
+
+def get_stats(event, headers):
+    """スクレイピング統計を取得"""
+    try:
+        db_path = os.path.join(os.path.dirname(__file__), '..', '..', 'events.db')
+        
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        
+        # 統計データを取得
+        cursor.execute("SELECT COUNT(*) FROM events WHERE is_active = 1")
+        active_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM events WHERE created_at >= date('now', '-7 days')")
+        recent_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT source_city, COUNT(*) FROM events WHERE is_active = 1 GROUP BY source_city")
+        city_stats = dict(cursor.fetchall())
+        
+        conn.close()
+        
+        return {
+            'statusCode': 200,
+            'headers': headers,
+            'body': json.dumps({
+                'active_events': active_count,
+                'recent_events': recent_count,
+                'city_stats': city_stats,
+                'timestamp': datetime.now().isoformat()
+            })
+        }
+        
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': headers,
+            'body': json.dumps({'error': f'Stats error: {str(e)}'})
         } 
