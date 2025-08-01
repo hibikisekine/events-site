@@ -500,7 +500,7 @@ function createEventCard(event) {
     const descriptionStr = event.description || '';
     
     return `
-        <div class="event-card" onclick="showEventDetails(${event.id})">
+        <div class="event-card">
             <div class="event-header">
                 <h4 class="event-title">${escapeHtml(event.title)}</h4>
                 <div class="event-badges">
@@ -509,7 +509,7 @@ function createEventCard(event) {
                     ${event.has_parking ? '<span class="badge bg-secondary">駐車場</span>' : ''}
                     ${event.is_indoor ? '<span class="badge bg-primary">屋内</span>' : '<span class="badge bg-success">屋外</span>'}
                     <span class="badge bg-dark">${event.category}</span>
-                    ${locationStr && locationStr.includes('市') ? `<span class="badge bg-info ms-2">${locationStr.match(/[^市]*市/)?.[0] || ''}</span>` : ''}
+                    ${event.source_city ? `<span class="badge bg-info ms-2">${event.source_city}</span>` : ''}
                 </div>
             </div>
             <div class="event-details">
@@ -524,6 +524,14 @@ function createEventCard(event) {
                 <div class="event-description">
                     ${escapeHtml(descriptionStr.substring(0, 150))}${descriptionStr.length > 150 ? '...' : ''}
                 </div>
+            </div>
+            <div class="event-actions">
+                <button class="btn btn-outline-primary btn-sm" onclick="showEventDetails(${event.id})">
+                    <i class="fas fa-info-circle me-1"></i>詳細を見る
+                </button>
+                ${event.source_url ? `<a href="${event.source_url}" class="btn btn-primary btn-sm ms-2" target="_blank">
+                    <i class="fas fa-external-link-alt me-1"></i>公式サイト
+                </a>` : ''}
             </div>
         </div>
     `;
@@ -540,7 +548,7 @@ function showEventDetails(eventId) {
     const linkElement = document.getElementById('eventModalLink');
     
     if (titleElement) titleElement.textContent = event.title;
-    if (linkElement) linkElement.href = event.url;
+    if (linkElement) linkElement.href = event.source_url || '#';
     
     if (bodyElement) {
         const date = new Date(event.date);
@@ -560,6 +568,9 @@ function showEventDetails(eventId) {
                 <p><strong>駐車場:</strong> ${event.has_parking ? 'あり' : 'なし'}</p>
                 <p><strong>子連れ:</strong> ${event.child_friendly ? 'OK' : '要確認'}</p>
                 <p><strong>屋内/屋外:</strong> ${event.is_indoor ? '屋内' : '屋外'}</p>
+                ${event.weather_dependent ? `<p><strong>天候依存:</strong> はい</p>` : ''}
+                ${event.rain_cancellation ? `<p><strong>雨天時:</strong> ${escapeHtml(event.rain_cancellation)}</p>` : ''}
+                ${event.source_city ? `<p><strong>地域:</strong> ${escapeHtml(event.source_city)}</p>` : ''}
             </div>
             <div class="event-description-full">
                 <h6>詳細</h6>
