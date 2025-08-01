@@ -305,6 +305,46 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* サイドバー広告 */
+.sidebar-ad {
+    margin-bottom: 2rem;
+}
+
+.sidebar-ad .ad-banner {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* サイドバーカード */
+.sidebar-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-card h4 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.region-info p {
+    color: #e9ecef;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.region-info strong {
+    color: #fff;
+    font-weight: 600;
+}
+
 /* フィルター状態表示 */
 .filter-loading,
 .filter-success,
@@ -363,19 +403,38 @@ body {
     .weather-card,
     .filter-card,
     .events-section {
-        padding: 1rem;
+        margin-bottom: 1.5rem;
     }
     
     .multi-city-weather {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
     
     .event-badges {
         flex-direction: column;
+        gap: 0.25rem;
     }
     
     .badge {
-        align-self: flex-start;
+        font-size: 0.7rem;
+    }
+    
+    /* モバイルでのサイドバー非表示 */
+    .col-lg-3 {
+        display: none;
+    }
+    
+    .col-lg-9 {
+        width: 100%;
+    }
+    
+    /* モバイルでの広告調整 */
+    .ad-section {
+        margin: 1rem 0;
+    }
+    
+    .sidebar-ad {
+        display: none;
     }
 }
 
