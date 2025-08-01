@@ -3,8 +3,8 @@
 let currentEvents = [];
 let currentWeather = null;
 
-// APIエンドポイント（GitHub Pages用）
-const API_BASE = 'https://your-username.github.io/events-site/api';
+// APIエンドポイント（Netlify用）
+const API_BASE = 'https://tsukuba.netlify.app/api';
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
@@ -41,13 +41,71 @@ async function loadData() {
         loadSampleData();
         
         // 天気データの更新
-        updateWeatherDisplay();
+        await loadWeatherData();
         
         console.log('✅ データ読み込み完了');
     } catch (error) {
         console.error('❌ データ読み込みエラー:', error);
         showError('データの読み込みに失敗しました');
     }
+}
+
+// 天気データ読み込み
+async function loadWeatherData() {
+    try {
+        // つくば市の天気データを取得
+        const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Tsukuba,JP&appid=YOUR_API_KEY&units=metric&lang=ja');
+        
+        if (response.ok) {
+            const weatherData = await response.json();
+            currentWeather = {
+                current: {
+                    temperature: Math.round(weatherData.main.temp),
+                    condition: weatherData.weather[0].description,
+                    humidity: weatherData.main.humidity,
+                    rain_probability: weatherData.rain ? Math.round(weatherData.rain['1h'] * 100) : 0
+                },
+                forecast: [
+                    {
+                        date: new Date().toISOString().split('T')[0],
+                        condition: weatherData.weather[0].description,
+                        temperature: Math.round(weatherData.main.temp),
+                        humidity: weatherData.main.humidity,
+                        rain_probability: weatherData.rain ? Math.round(weatherData.rain['1h'] * 100) : 0
+                    }
+                ]
+            };
+        } else {
+            // APIキーがない場合はサンプルデータを使用
+            loadSampleWeatherData();
+        }
+    } catch (error) {
+        console.log('天気APIエラー、サンプルデータを使用:', error);
+        loadSampleWeatherData();
+    }
+    
+    updateWeatherDisplay();
+}
+
+// サンプル天気データ
+function loadSampleWeatherData() {
+    currentWeather = {
+        current: {
+            temperature: 25,
+            condition: '晴れ',
+            humidity: 60,
+            rain_probability: 10
+        },
+        forecast: [
+            {
+                date: new Date().toISOString().split('T')[0],
+                condition: '晴れ',
+                temperature: 25,
+                humidity: 60,
+                rain_probability: 10
+            }
+        ]
+    };
 }
 
 // サンプルデータ読み込み
@@ -94,6 +152,34 @@ function loadSampleData() {
             child_friendly: true,
             is_indoor: true,
             url: 'https://example.com/event3'
+        },
+        {
+            id: 4,
+            title: 'つくばみらい市地域交流イベント',
+            date: '2025-08-30',
+            time: '11:00',
+            location: 'つくばみらい市役所前広場',
+            description: '地域の皆さんとの交流イベントです。',
+            category: '地域',
+            is_free: true,
+            has_parking: true,
+            child_friendly: true,
+            is_indoor: false,
+            url: 'https://example.com/event4'
+        },
+        {
+            id: 5,
+            title: '教育セミナー',
+            date: '2025-09-05',
+            time: '15:00',
+            location: 'つくば市教育センター',
+            description: '教育に関するセミナーです。',
+            category: '教育',
+            is_free: false,
+            has_parking: true,
+            child_friendly: false,
+            is_indoor: true,
+            url: 'https://example.com/event5'
         }
     ];
     
@@ -245,31 +331,23 @@ function showEventDetails(eventId) {
 
 // 天気表示更新
 function updateWeatherDisplay() {
-    // サンプル天気データ
-    const sampleWeather = {
-        current: {
-            temperature: 25,
-            condition: '晴れ',
-            humidity: 60,
-            rain_probability: 10
-        },
-        forecast: [
-            {
-                date: new Date().toISOString().split('T')[0],
-                condition: '晴れ',
-                temperature: 25,
-                humidity: 60,
-                rain_probability: 10
-            }
-        ]
-    };
-    
-    currentWeather = sampleWeather;
-    
     const weatherInfo = document.getElementById('weather-info');
     const weatherIcon = document.getElementById('weather-icon');
     
     if (!weatherInfo || !weatherIcon) return;
+    
+    if (!currentWeather) {
+        weatherInfo.innerHTML = `
+            <div class="weather-details">
+                <div class="weather-main">天気情報を取得中...</div>
+                <div class="weather-temp">--°C</div>
+                <div class="weather-humidity">湿度: --%</div>
+                <div class="weather-rain">降水確率: --%</div>
+            </div>
+        `;
+        weatherIcon.innerHTML = '<i class="fas fa-sun fa-3x text-warning"></i>';
+        return;
+    }
     
     const today = new Date().toISOString().split('T')[0];
     const todayWeather = currentWeather.forecast ? currentWeather.forecast.find(f => f.date === today) : null;
