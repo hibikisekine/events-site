@@ -1,0 +1,483 @@
+{
+  "seasonal_events": [
+    {
+      "id": 14,
+      "title": "公園内での花火使用についてのお願い",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-07-17",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/mizutomidori/shisetsu/guide/hanabi.html",
+      "created_at": "2025-08-13 02:17:50"
+    },
+    {
+      "id": 15,
+      "title": "取手競輪夏休みイベント「ステンシルアート体験」",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-08-07",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/sanshin/keirin/stencilart2025.html",
+      "created_at": "2025-08-13 02:17:50"
+    },
+    {
+      "id": 16,
+      "title": "今月のイベント一覧",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-08-01",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/cgi-bin/event_cal_multi/calendar.cgi",
+      "created_at": "2025-08-13 02:17:50"
+    },
+    {
+      "id": 17,
+      "title": "花火大会の開催と翌日清掃へのご協力に感謝（市長　中村修）",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-08-12",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/getsumokusay/nakamuraosamu/20250812.html",
+      "created_at": "2025-08-13 02:17:50"
+    },
+    {
+      "id": 18,
+      "title": "明日8月9日は第70回とりで利根川大花火（市長　中村修）",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-08-08",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/getsumokusay/nakamuraosamu/20250808.html",
+      "created_at": "2025-08-13 02:17:50"
+    },
+    {
+      "id": 11,
+      "title": "令和7年8月12日「受付終了」学生企画！小花火の日イベント開催",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "2025-08-12",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/bunka_sports_shiminkatsudou/npo/1003685/1003696/1010929.html",
+      "created_at": "2025-08-13 02:17:31"
+    },
+    {
+      "id": 12,
+      "title": "イベント新着更新情報一覧",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "2025-08-12",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/1010370.html",
+      "created_at": "2025-08-13 02:17:31"
+    },
+    {
+      "id": 13,
+      "title": "イベントカレンダー",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "0297-45-11",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/event_calendar.html",
+      "created_at": "2025-08-13 02:17:31"
+    },
+    {
+      "id": 1,
+      "title": "つくば市イベントカレンダー（市主催のイベント情報メイン）",
+      "description": "【働く婦人の家講座】 竪琴講座（7月から8月）",
+      "date": "2025-08-14",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/calendar.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 2,
+      "title": "つくばセンター広場等のイベント情報",
+      "description": "イベントの詳細は主催者のホームページやSNSをご覧ください。",
+      "date": "2025-08-07",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/18891.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 3,
+      "title": "県南自治体イベント情報",
+      "description": "県南自治体（土浦市、取手市、牛久市、守谷市、稲敷市、つくばみらい市、石岡市、龍ケ崎市、かすみがうら市）のイベント情報を各市ホームページに相互掲載する取り組みを行っています。(注意)情報は随時更新していきます。",
+      "date": "2023-07-29",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/soshikikarasagasu/shichokoshitsukohosenryakuka/gyomuannai/1/2/1013506.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 4,
+      "title": "【つくば市民センター講座】イベント開催時の危機管理 〜活動中に災害が 起こったら？～",
+      "description": "イベント開催時の危機管理〜活動中に災害が起こったら？ ～どんなイベントにも適用できる「危機管理の考え方」を話し合いながら身につけましょう。",
+      "date": "2025-08-04",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/25805.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 5,
+      "title": "「つくば市・大子町間幹線道路整備促進PRサイクリングイベント」を開催！【受付は終了しました】",
+      "description": "※募集定員に達したため申込受付を終了しました。令和7年7月25日追記",
+      "date": "2025-07-25",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/25154.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 6,
+      "title": "つくばフェスティバル2025",
+      "description": "つくばフェスティバル2025が開催されました",
+      "date": "2025-05-17",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/23548.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 7,
+      "title": "つくばフェスティバル",
+      "description": "経済部　観光推進課〒305-8555　つくば市研究学園一丁目1番地1電話：029-883-1111(代表)　ファクス：029-868-7615",
+      "date": null,
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/23543.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 8,
+      "title": "その他イベント情報",
+      "description": "つくば市役所〒305-8555　つくば市研究学園一丁目1番地1電話：029-883-1111(代表)",
+      "date": "2025-08-30",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/1013507/index.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 9,
+      "title": "つくばイベントカレンダー【いばナビ】",
+      "description": "茨城県内の地域情報ポータルサイト「いばナビ」（株式会社日宣メディックス）が提供するつくば市内のイベントカレンダーです。",
+      "date": "2024-04-25",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/1001414.html",
+      "created_at": "2025-08-13 02:16:48"
+    },
+    {
+      "id": 10,
+      "title": "つくばセンター広場等のイベント情報",
+      "description": "イベントの詳細は主催者のホームページやSNSをご覧ください。",
+      "date": "2025-08-07",
+      "location": "市内各所",
+      "category": "季節イベント",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/event/18891.html",
+      "created_at": "2025-08-13 02:16:48"
+    }
+  ],
+  "food_info": [],
+  "childcare_info": [
+    {
+      "id": 10,
+      "title": "子育て・教育",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "2025-06-17",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/kosodate_kyouiku/index.html",
+      "created_at": "2025-08-13 02:17:34"
+    },
+    {
+      "id": 11,
+      "title": "「子育て王国もりや」実現に向けた学校教育改革プラン",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "0297-45-11",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/kosodate_kyouiku/kyouiku/1002690/index.html",
+      "created_at": "2025-08-13 02:17:34"
+    },
+    {
+      "id": 6,
+      "title": "妊娠・出産・子育て",
+      "description": "児童手当は、家庭等における生活の安定に寄与するとともに、次代の社会を担う児童の健やかな成長に資することを目的とする制度です。",
+      "date": "2024-12-27",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/jyumin/ninshin-shussan-kosodate/",
+      "created_at": "2025-08-13 02:17:17"
+    },
+    {
+      "id": 7,
+      "title": "R7子育て応援イベント第2弾  おやこハロウィンパーティ2025好評につき予約枠を拡大します。お早めにお申し込みください。",
+      "description": "令和7年10月10日（金曜日）　10時00分～14時00分（受付9時40分～10時40分　この時間内にお越しください）※途中での退出も可能です。※荒天中止となります。",
+      "date": "2025-08-08",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/miraidaira-shimin-center/marumaru/oyako-gyoumu/event/page005315.html",
+      "created_at": "2025-08-13 02:17:17"
+    },
+    {
+      "id": 8,
+      "title": "R7子育て応援イベント第2弾  おやこハロウィンパーティ2025好評につき予約枠を拡大します。お早めにお申し込みください。",
+      "description": "令和7年10月10日（金曜日）　10時00分～14時00分（受付9時40分～10時40分　この時間内にお越しください）※途中での退出も可能です。※荒天中止となります。",
+      "date": "2025-08-08",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/miraidaira-shimin-center/marumaru/oyako-gyoumu/event/page005315.html",
+      "created_at": "2025-08-13 02:17:17"
+    },
+    {
+      "id": 9,
+      "title": "パパといっしょに作ろう　まるまるランチ　（みらい子育てパパサポートプロジェクト）",
+      "description": "「パパといっしょに作ろう　まるまるランチ」では、季節の料理をお子さん主体で一緒に作ります。食材をちぎったり、混ぜたり、盛り付けをしたりと、パパと一緒に作った料理は、おやこで一緒にいただきます。食事が終わったあとは、子育て支援室BLOOMで保育士とパパ、お子さんとで一緒にふれあい遊びを楽しみます。同世代の児を持つパパ同士の交流が楽しめたり、食育、一緒に参加する管理栄養士、保健師、保育士などの専門職員に気軽に相談することができる教室です。",
+      "date": "2025-03-25",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/miraidaira-shimin-center/marumaru/oyako-gyoumu/papa-support/page006492.html",
+      "created_at": "2025-08-13 02:17:17"
+    },
+    {
+      "id": 1,
+      "title": "子育て・教育",
+      "description": "市長公約事業のロードマップ2024-2028",
+      "date": "2025-08-23",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/",
+      "created_at": "2025-08-13 02:16:57"
+    },
+    {
+      "id": 2,
+      "title": "子育て・教育　トップページ",
+      "description": "母子保健、予防接種、保育所、児童館・児童クラブ、子育て支援、子どもの未来支援、家庭児童相談、幼保無償化などについて",
+      "date": null,
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kosodate/index.html",
+      "created_at": "2025-08-13 02:16:57"
+    },
+    {
+      "id": 3,
+      "title": "子育て・教育",
+      "description": "市長公約事業のロードマップ2024-2028",
+      "date": "2025-08-23",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/",
+      "created_at": "2025-08-13 02:16:57"
+    },
+    {
+      "id": 4,
+      "title": "子育て・教育 トップページ",
+      "description": "母子保健、予防接種、保育所、児童館・児童クラブ、子育て支援、子どもの未来支援、家庭児童相談、幼保無償化などについて",
+      "date": null,
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kosodate/index.html",
+      "created_at": "2025-08-13 02:16:57"
+    },
+    {
+      "id": 5,
+      "title": "子育て・教育関連のお知らせ一覧",
+      "description": "窓口受付時間:平日午前8時45分から午後4時30分まで土曜日・日曜日・祝日・年末年始は閉庁一部の業務は、木曜（第2、第4）の夜間・土曜に窓口を開庁しています。詳細ページをご確認ください。",
+      "date": "2025-08-14",
+      "location": "子育て支援センター",
+      "category": "子育て",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kosodate/oshirase/index.html",
+      "created_at": "2025-08-13 02:16:57"
+    }
+  ],
+  "tourism_info": [
+    {
+      "id": 9,
+      "title": "文化活動・観光",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/bunkakatsudo/index.html",
+      "created_at": "2025-08-13 02:17:54"
+    },
+    {
+      "id": 10,
+      "title": "公園内での花火使用についてのお願い",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/mizutomidori/shisetsu/guide/hanabi.html",
+      "created_at": "2025-08-13 02:17:54"
+    },
+    {
+      "id": 7,
+      "title": "福岡堰と歴史公園の桜並木害虫駆除のための薬剤散布を行います。",
+      "description": "下記の日程にて、桜の害虫駆除のため薬剤散布を実施します。近隣の皆様にはご迷惑をおかけしますが、ご理解・ご協力くださいますようお願いいたします。",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/jyumin/seikatsu-machidukuri/news/page006888.html",
+      "created_at": "2025-08-13 02:17:19"
+    },
+    {
+      "id": 8,
+      "title": "学校給食センター施設見学・試食会",
+      "description": "学校給食センター「MIRAI-LUNCH」では、市内の公立小中学校・幼稚園の子どもたちの健全な発達に資するため、「安全・安心でおいしい給食」をお届けしています。また、学校給食では市内産米を金芽米に加工したご飯を提供しています。金芽米ご飯や地場産の野菜を使用した給食を食べてみませんか？",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/edu-board/kyuushoku/page006631.html",
+      "created_at": "2025-08-13 02:17:19"
+    },
+    {
+      "id": 1,
+      "title": "観光・文化・スポーツ",
+      "description": "市長公約事業のロードマップ2024-2028",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/",
+      "created_at": "2025-08-13 02:17:06"
+    },
+    {
+      "id": 2,
+      "title": "観光・文化・スポーツ　トップページ",
+      "description": "つくば市内の観光情報、筑波山、サイエンスツアー、市営駐車場などについて",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/index.html",
+      "created_at": "2025-08-13 02:17:06"
+    },
+    {
+      "id": 3,
+      "title": "観光・文化・スポーツ",
+      "description": "市長公約事業のロードマップ2024-2028",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/",
+      "created_at": "2025-08-13 02:17:06"
+    },
+    {
+      "id": 4,
+      "title": "観光・文化・スポーツ トップページ",
+      "description": "つくば市内の観光情報、筑波山、サイエンスツアー、市営駐車場などについて",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/index.html",
+      "created_at": "2025-08-13 02:17:06"
+    },
+    {
+      "id": 5,
+      "title": "観光・文化・スポーツ関連のお知らせ一覧",
+      "description": "窓口受付時間:平日午前8時45分から午後4時30分まで土曜日・日曜日・祝日・年末年始は閉庁一部の業務は、木曜（第2、第4）の夜間・土曜に窓口を開庁しています。詳細ページをご確認ください。",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/kankobunka/oshirase/index.html",
+      "created_at": "2025-08-13 02:17:06"
+    },
+    {
+      "id": 6,
+      "title": "観光情報の特設サイトへ",
+      "description": "五感で楽しむ、つくば。Let's Enjoy Tsukuba",
+      "location": "市内各所",
+      "category": "観光",
+      "city": "つくば市",
+      "source_url": "https://www.city.tsukuba.lg.jp/tourism/index.html",
+      "created_at": "2025-08-13 02:17:06"
+    }
+  ],
+  "culture_info": [
+    {
+      "id": 3,
+      "title": "がいこくごとにほんごのおはなし会（ふじしろ図書館）",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-07-31",
+      "location": "文化センター",
+      "category": "文化",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/toshokan-fujishiro/20240810.html",
+      "created_at": "2025-08-13 02:17:57"
+    },
+    {
+      "id": 4,
+      "title": "今年もみるとつい「にこにこ」しちゃう展示がはじまりました（のん）",
+      "description": "このサイトではJavaScriptを使用したコンテンツ・機能を提供しています。JavaScriptを有効にするとご利用いただけます。",
+      "date": "2025-08-08",
+      "location": "文化センター",
+      "category": "文化",
+      "city": "取手市",
+      "source_url": "https://www.city.toride.ibaraki.jp/getsumokusay/non/20250808.html",
+      "created_at": "2025-08-13 02:17:57"
+    },
+    {
+      "id": 2,
+      "title": "図書館長期休館及び臨時窓口の開設について",
+      "description": "当ホームページではjavascriptを使用しています。 javascriptの使用を有効にしなければ、一部の機能が正確に動作しない恐れがあります。お手数ですがjavascriptの使用を有効にしてください。",
+      "date": "2025-08-25",
+      "location": "文化センター",
+      "category": "文化",
+      "city": "守谷市",
+      "source_url": "https://www.city.moriya.ibaraki.jp/library/aboutus/notice/1010206.html",
+      "created_at": "2025-08-13 02:17:36"
+    },
+    {
+      "id": 1,
+      "title": "令和7年度第1回つくばみらい市図書館協議会の開催のお知らせ",
+      "description": "令和7年度第1回つくばみらい市図書館協議会",
+      "date": "2025-07-29",
+      "location": "文化センター",
+      "category": "文化",
+      "city": "つくばみらい市",
+      "source_url": "https://www.city.tsukubamirai.lg.jp/gyousei/gikai/r07/page006862.html",
+      "created_at": "2025-08-13 02:17:21"
+    }
+  ],
+  "stats": {
+    "seasonal_events": 18,
+    "food_info": 0,
+    "childcare_info": 11,
+    "tourism_info": 10,
+    "culture_info": 4,
+    "last_run": null
+  },
+  "timestamp": "2025-08-13T11:18:02.475776"
+}

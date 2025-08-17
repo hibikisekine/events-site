@@ -6,6 +6,50 @@ let multiCityWeather = {};
 // APIエンドポイント（静的JSONファイル使用）
 const API_BASE = 'https://tsukuba.netlify.app/api';
 
+// A8.net 広告クリック関数
+function A8SalesClick() {
+    console.log('🎯 A8.net 広告がクリックされました');
+    // A8.netのスクリプトが読み込まれている場合、自動的に処理されます
+    // クリックイベントのログを記録
+    try {
+        if (typeof window.A8SalesClick === 'function') {
+            window.A8SalesClick();
+        } else {
+            console.log('📊 A8.net 広告クリックを記録');
+            // 広告クリックの統計を記録（将来的な分析用）
+            const clickData = {
+                timestamp: new Date().toISOString(),
+                type: 'ad_click',
+                source: 'a8net'
+            };
+            console.log('📈 広告クリックデータ:', clickData);
+        }
+    } catch (error) {
+        console.error('❌ A8.net 広告クリックエラー:', error);
+    }
+}
+
+// Google Analytics イベント追跡
+function trackEvent(eventName, eventCategory, eventAction, eventLabel = null) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, {
+            event_category: eventCategory,
+            event_action: eventAction,
+            event_label: eventLabel
+        });
+    }
+}
+
+// ページビューの追跡
+function trackPageView(pageTitle) {
+    if (typeof gtag !== 'undefined') {
+        gtag('config', 'G-BTJQ4YG2EP', {
+            page_title: pageTitle,
+            page_location: window.location.href
+        });
+    }
+}
+
 // 地域リスト
 const CITIES = [
     { name: 'つくば市', query: 'Tsukuba,Japan' },
@@ -16,10 +60,63 @@ const CITIES = [
 
 // ページ読み込み時の初期化
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 今日行けるイベントサイトを初期化中...');
-    setupEventListeners();
+    console.log('🚀 ページ読み込み開始');
+    
+    // Google Analytics ページビューの追跡
+    trackPageView('茨城県南のイベント情報');
+    
+    // データ読み込み
     loadData();
+    
+    // 忍者アドマックス 広告の初期化
+    initializeNinjaAds();
+    
+    // フィルター機能の初期化
+    initializeFilters();
+    
+    // 天気情報の取得
+    getWeatherInfo();
+    
+    console.log('✅ ページ初期化完了');
 });
+
+// 忍者アドマックス 広告の初期化
+function initializeNinjaAds() {
+    console.log('🎯 忍者アドマックス 広告初期化開始');
+    
+    // 広告バナーの表示状態を確認
+    checkAdBanners();
+}
+
+// 広告バナーの表示状態を確認
+function checkAdBanners() {
+    console.log('📢 忍者アドマックス広告の表示状態を確認中...');
+    
+    const adSections = document.querySelectorAll('.ad-section, .sidebar-ad');
+    console.log(`📊 検出された広告セクション数: ${adSections.length}`);
+    
+    adSections.forEach((section, index) => {
+        const isVisible = section.offsetParent !== null;
+        const rect = section.getBoundingClientRect();
+        console.log(`📢 広告${index + 1}: 表示=${isVisible}, 位置=(${rect.left}, ${rect.top}), サイズ=${rect.width}x${rect.height}`);
+        
+        // 広告バナーが見えない場合は警告を表示
+        if (!isVisible || rect.width === 0 || rect.height === 0) {
+            console.warn(`⚠️ 広告${index + 1}が表示されていません:`, section);
+            section.style.border = '5px solid red';
+            section.style.background = '#ffebee';
+        }
+    });
+    
+    // 忍者アドマックススクリプトの読み込み確認
+    const ninjaScripts = document.querySelectorAll('script[src*="adm.shinobi.jp"]');
+    console.log(`📊 忍者アドマックススクリプト数: ${ninjaScripts.length}`);
+    ninjaScripts.forEach((script, index) => {
+        console.log(`📊 忍者アドマックススクリプト${index + 1}: ${script.src}`);
+    });
+}
+
+
 
 // イベントリスナーの設定
 function setupEventListeners() {
@@ -31,13 +128,59 @@ function setupEventListeners() {
     const childFriendlyFilter = document.getElementById('child-friendly-filter');
     const parkingFilter = document.getElementById('parking-filter');
 
+    // 地域特集フィルター要素の取得
+    const contentCityFilter = document.getElementById('content-city-filter');
+    const contentCategoryFilter = document.getElementById('content-category-filter');
+
+    // 地域情報フィルター要素の取得
+    const regionCityFilter = document.getElementById('region-city-filter');
+    const regionCategoryFilter = document.getElementById('region-category-filter');
+
     // フィルター変更時のイベント
-    if (categoryFilter) categoryFilter.addEventListener('change', filterEvents);
-    if (cityFilter) cityFilter.addEventListener('change', filterEvents);
-    if (locationFilter) locationFilter.addEventListener('change', filterEvents);
-    if (freeFilter) freeFilter.addEventListener('change', filterEvents);
-    if (childFriendlyFilter) childFriendlyFilter.addEventListener('change', filterEvents);
-    if (parkingFilter) parkingFilter.addEventListener('change', filterEvents);
+    if (categoryFilter) categoryFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'category');
+        filterEvents();
+    });
+    if (cityFilter) cityFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'city');
+        filterEvents();
+    });
+    if (locationFilter) locationFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'location');
+        filterEvents();
+    });
+    if (freeFilter) freeFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'free');
+        filterEvents();
+    });
+    if (childFriendlyFilter) childFriendlyFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'child_friendly');
+        filterEvents();
+    });
+    if (parkingFilter) parkingFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'parking');
+        filterEvents();
+    });
+
+    // 地域特集フィルター変更時のイベント
+    if (contentCityFilter) contentCityFilter.addEventListener('change', () => {
+        trackEvent('content_filter_change', 'engagement', 'filter', 'content_city');
+        filterContent();
+    });
+    if (contentCategoryFilter) contentCategoryFilter.addEventListener('change', () => {
+        trackEvent('content_filter_change', 'engagement', 'filter', 'content_category');
+        filterContent();
+    });
+
+    // 地域情報フィルター変更時のイベント
+    if (regionCityFilter) regionCityFilter.addEventListener('change', () => {
+        trackEvent('region_filter_change', 'engagement', 'filter', 'region_city');
+        filterRegion();
+    });
+    if (regionCategoryFilter) regionCategoryFilter.addEventListener('change', () => {
+        trackEvent('region_filter_change', 'engagement', 'filter', 'region_category');
+        filterRegion();
+    });
 }
 
 // データ読み込み
@@ -47,6 +190,9 @@ async function loadData() {
         
         // 実際のスクレイピングデータを試行
         await loadScrapedEvents();
+        
+        // 新しいコンテンツデータを読み込み
+        await loadContentData();
         
         // 複数地域の天気データの更新
         await loadMultiCityWeatherData();
@@ -579,12 +725,16 @@ function showEventDetails(eventId) {
         `;
     }
     
+    // Google Analytics イベント追跡
+    trackEvent('event_detail_view', 'engagement', 'view', event.title);
+    
     modal.show();
 }
 
 // データ更新
 function refreshData() {
     console.log('🔄 データを更新中...');
+    trackEvent('data_refresh', 'engagement', 'click', 'refresh_button');
     loadData();
 }
 
@@ -606,4 +756,365 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+// 新しいコンテンツデータを読み込み
+async function loadContentData() {
+    try {
+        console.log('📚 コンテンツデータを読み込み中...');
+        
+        const response = await fetch(`${API_BASE}/content.json`);
+        
+        if (response.ok) {
+            const data = await response.json();
+            console.log('📊 コンテンツデータ:', data);
+            
+            // 各コンテンツセクションを更新
+            updateSeasonalEvents(data.seasonal_events || []);
+            updateFoodInfo(data.food_info || []);
+            updateChildcareInfo(data.childcare_info || []);
+            updateTourismInfo(data.tourism_info || []);
+            updateCultureInfo(data.culture_info || []);
+            
+            console.log('✅ コンテンツデータ読み込み完了');
+        } else {
+            console.warn('⚠️ コンテンツデータの取得に失敗');
+        }
+    } catch (error) {
+        console.error('❌ コンテンツデータ読み込みエラー:', error);
+    }
+}
+
+// 地域特集フィルター機能
+function filterContent() {
+    const cityFilter = document.getElementById('content-city-filter').value;
+    const categoryFilter = document.getElementById('content-category-filter').value;
+    
+    console.log('🔍 地域特集フィルター適用:', { city: cityFilter, category: categoryFilter });
+    
+    // 地域特集セクション内のコンテンツカードのみを対象
+    const contentSection = document.querySelector('.content-section:has(.content-card[data-category="季節イベント"])');
+    if (!contentSection) return;
+    
+    const contentCards = contentSection.querySelectorAll('.content-card');
+    
+    contentCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const container = card.querySelector('[id$="-container"]');
+        
+        // カテゴリフィルター
+        const categoryMatch = !categoryFilter || category === categoryFilter;
+        
+        // 地域フィルター（コンテンツ内のアイテムをチェック）
+        let cityMatch = !cityFilter;
+        if (cityFilter && container) {
+            const items = container.querySelectorAll('.content-item');
+            items.forEach(item => {
+                const cityBadge = item.querySelector('.content-badge.city');
+                if (cityBadge && cityBadge.textContent === cityFilter) {
+                    cityMatch = true;
+                }
+            });
+        }
+        
+        // 表示/非表示の切り替え
+        if (categoryMatch && cityMatch) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // コンテンツ内のアイテムもフィルター
+    if (cityFilter) {
+        const contentItems = contentSection.querySelectorAll('.content-item');
+        contentItems.forEach(item => {
+            const cityBadge = item.querySelector('.content-badge.city');
+            if (cityBadge) {
+                if (cityBadge.textContent === cityFilter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+        });
+    }
+}
+
+// 地域情報フィルター機能
+function filterRegion() {
+    const cityFilter = document.getElementById('region-city-filter').value;
+    const categoryFilter = document.getElementById('region-category-filter').value;
+    
+    console.log('🔍 地域情報フィルター適用:', { city: cityFilter, category: categoryFilter });
+    
+    // 地域情報セクション内のコンテンツカードのみを対象
+    const regionSection = document.querySelector('.content-section:has(.content-card[data-category="観光"])');
+    if (!regionSection) return;
+    
+    const contentCards = regionSection.querySelectorAll('.content-card');
+    
+    contentCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const container = card.querySelector('[id$="-container"]');
+        
+        // カテゴリフィルター
+        const categoryMatch = !categoryFilter || category === categoryFilter;
+        
+        // 地域フィルター（コンテンツ内のアイテムをチェック）
+        let cityMatch = !cityFilter;
+        if (cityFilter && container) {
+            const items = container.querySelectorAll('.content-item');
+            items.forEach(item => {
+                const cityBadge = item.querySelector('.content-badge.city');
+                if (cityBadge && cityBadge.textContent === cityFilter) {
+                    cityMatch = true;
+                }
+            });
+        }
+        
+        // 表示/非表示の切り替え
+        if (categoryMatch && cityMatch) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // コンテンツ内のアイテムもフィルター
+    if (cityFilter) {
+        const contentItems = regionSection.querySelectorAll('.content-item');
+        contentItems.forEach(item => {
+            const cityBadge = item.querySelector('.content-badge.city');
+            if (cityBadge) {
+                if (cityBadge.textContent === cityFilter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            }
+        });
+    }
+}
+
+// 季節イベントの表示を更新
+function updateSeasonalEvents(events) {
+    const container = document.getElementById('seasonal-events-container');
+    if (!container) return;
+    
+    if (events.length === 0) {
+        container.innerHTML = '<p class="text-muted">現在、季節イベントの情報はありません。</p>';
+        return;
+    }
+    
+    container.innerHTML = events.map(event => `
+        <div class="content-item">
+            <h5>${escapeHtml(event.title)}</h5>
+            <p>${escapeHtml(event.description)}</p>
+            <div class="content-meta">
+                ${event.date ? `<span class="content-badge date">${event.date}</span>` : ''}
+                ${event.location ? `<span class="content-badge">${escapeHtml(event.location)}</span>` : ''}
+                ${event.category ? `<span class="content-badge category">${escapeHtml(event.category)}</span>` : ''}
+                ${event.city ? `<span class="content-badge city">${escapeHtml(event.city)}</span>` : ''}
+                ${event.source_url ? `<a href="${event.source_url}" class="content-link" target="_blank">詳細を見る</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// グルメ情報の表示を更新
+function updateFoodInfo(foodInfo) {
+    const container = document.getElementById('food-info-container');
+    if (!container) return;
+    
+    if (foodInfo.length === 0) {
+        container.innerHTML = '<p class="text-muted">現在、グルメ情報はありません。</p>';
+        return;
+    }
+    
+    container.innerHTML = foodInfo.map(food => `
+        <div class="content-item">
+            <h5>${escapeHtml(food.title)}</h5>
+            <p>${escapeHtml(food.description)}</p>
+            <div class="content-meta">
+                ${food.location ? `<span class="content-badge">${escapeHtml(food.location)}</span>` : ''}
+                ${food.category ? `<span class="content-badge category">${escapeHtml(food.category)}</span>` : ''}
+                ${food.city ? `<span class="content-badge city">${escapeHtml(food.city)}</span>` : ''}
+                ${food.source_url ? `<a href="${food.source_url}" class="content-link" target="_blank">詳細を見る</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// 子育て情報の表示を更新
+function updateChildcareInfo(childcareInfo) {
+    const container = document.getElementById('childcare-info-container');
+    if (!container) return;
+    
+    if (childcareInfo.length === 0) {
+        container.innerHTML = '<p class="text-muted">現在、子育て情報はありません。</p>';
+        return;
+    }
+    
+    container.innerHTML = childcareInfo.map(childcare => `
+        <div class="content-item">
+            <h5>${escapeHtml(childcare.title)}</h5>
+            <p>${escapeHtml(childcare.description)}</p>
+            <div class="content-meta">
+                ${childcare.date ? `<span class="content-badge date">${childcare.date}</span>` : ''}
+                ${childcare.location ? `<span class="content-badge">${escapeHtml(childcare.location)}</span>` : ''}
+                ${childcare.category ? `<span class="content-badge category">${escapeHtml(childcare.category)}</span>` : ''}
+                ${childcare.city ? `<span class="content-badge city">${escapeHtml(childcare.city)}</span>` : ''}
+                ${childcare.source_url ? `<a href="${childcare.source_url}" class="content-link" target="_blank">詳細を見る</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// 観光情報の表示を更新
+function updateTourismInfo(tourismInfo) {
+    const container = document.getElementById('tourism-info-container');
+    if (!container) return;
+    
+    if (tourismInfo.length === 0) {
+        container.innerHTML = '<p class="text-muted">現在、観光情報はありません。</p>';
+        return;
+    }
+    
+    container.innerHTML = tourismInfo.map(tourism => `
+        <div class="content-item">
+            <h5>${escapeHtml(tourism.title)}</h5>
+            <p>${escapeHtml(tourism.description)}</p>
+            <div class="content-meta">
+                ${tourism.location ? `<span class="content-badge">${escapeHtml(tourism.location)}</span>` : ''}
+                ${tourism.category ? `<span class="content-badge category">${escapeHtml(tourism.category)}</span>` : ''}
+                ${tourism.city ? `<span class="content-badge city">${escapeHtml(tourism.city)}</span>` : ''}
+                ${tourism.source_url ? `<a href="${tourism.source_url}" class="content-link" target="_blank">詳細を見る</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+// 文化施設情報の表示を更新
+function updateCultureInfo(cultureInfo) {
+    const container = document.getElementById('culture-info-container');
+    if (!container) return;
+    
+    if (cultureInfo.length === 0) {
+        container.innerHTML = '<p class="text-muted">現在、文化施設情報はありません。</p>';
+        return;
+    }
+    
+    container.innerHTML = cultureInfo.map(culture => `
+        <div class="content-item">
+            <h5>${escapeHtml(culture.title)}</h5>
+            <p>${escapeHtml(culture.description)}</p>
+            <div class="content-meta">
+                ${culture.date ? `<span class="content-badge date">${culture.date}</span>` : ''}
+                ${culture.location ? `<span class="content-badge">${escapeHtml(culture.location)}</span>` : ''}
+                ${culture.category ? `<span class="content-badge category">${escapeHtml(culture.category)}</span>` : ''}
+                ${culture.city ? `<span class="content-badge city">${escapeHtml(culture.city)}</span>` : ''}
+                ${culture.source_url ? `<a href="${culture.source_url}" class="content-link" target="_blank">詳細を見る</a>` : ''}
+            </div>
+        </div>
+    `).join('');
+} 
+
+// フィルター機能の初期化
+function initializeFilters() {
+    console.log('🔍 フィルター機能初期化');
+    
+    // イベントフィルター
+    const categoryFilter = document.getElementById('category-filter');
+    const cityFilter = document.getElementById('city-filter');
+    const locationFilter = document.getElementById('location-filter');
+    
+    if (categoryFilter) categoryFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'category');
+        filterEvents();
+    });
+    
+    if (cityFilter) cityFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'city');
+        filterEvents();
+    });
+    
+    if (locationFilter) locationFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'location');
+        filterEvents();
+    });
+    
+    // コンテンツフィルター
+    const contentCityFilter = document.getElementById('content-city-filter');
+    const contentCategoryFilter = document.getElementById('content-category-filter');
+    
+    if (contentCityFilter) contentCityFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'content_city');
+        filterContent();
+    });
+    
+    if (contentCategoryFilter) contentCategoryFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'content_category');
+        filterContent();
+    });
+    
+    // 地域情報フィルター
+    const regionCityFilter = document.getElementById('region-city-filter');
+    const regionCategoryFilter = document.getElementById('region-category-filter');
+    
+    if (regionCityFilter) regionCityFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'region_city');
+        filterRegion();
+    });
+    
+    if (regionCategoryFilter) regionCategoryFilter.addEventListener('change', () => {
+        trackEvent('filter_change', 'engagement', 'filter', 'region_category');
+        filterRegion();
+    });
+    
+    console.log('✅ フィルター機能初期化完了');
+} 
+
+// 天気情報の取得
+function getWeatherInfo() {
+    console.log('🌤️ 天気情報を取得中...');
+    
+    // 天気APIから情報を取得
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=Tsukuba,JP&appid=YOUR_API_KEY&units=metric&lang=ja')
+        .then(response => response.json())
+        .then(data => {
+            console.log('✅ 天気情報を取得しました:', data);
+            updateWeatherDisplay(data);
+        })
+        .catch(error => {
+            console.error('❌ 天気情報の取得に失敗しました:', error);
+            // エラー時はサンプルデータを表示
+            updateWeatherDisplay({
+                weather: [{ description: '晴れ' }],
+                main: { temp: 25, humidity: 60 },
+                rain: { '1h': 0 }
+            });
+        });
+}
+
+// 天気表示の更新
+function updateWeatherDisplay(data) {
+    const weatherInfo = document.getElementById('weather-info');
+    if (!weatherInfo) return;
+    
+    const temp = Math.round(data.main.temp);
+    const humidity = data.main.humidity;
+    const description = data.weather[0].description;
+    const rainProb = data.rain ? Math.round(data.rain['1h'] * 100) : 0;
+    
+    weatherInfo.innerHTML = `
+        <div class="weather-details">
+            <div class="weather-main">${description}</div>
+            <div class="weather-temp">${temp}°C</div>
+            <div class="weather-humidity">湿度: ${humidity}%</div>
+            <div class="weather-rain">降水確率: ${rainProb}%</div>
+        </div>
+    `;
+    
+    console.log('✅ 天気表示を更新しました');
 } 

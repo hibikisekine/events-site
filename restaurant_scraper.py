@@ -11,8 +11,8 @@ from config import X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRE
 class RestaurantScraper:
     def __init__(self, db_path: str = RESTAURANTS_DB):
         self.db_path = db_path
+        self.setup_logging()  # ログ設定を最初に実行
         self.init_database()
-        self.setup_logging()
         
         # 検索キーワード（つくば市周辺）
         self.search_keywords = [

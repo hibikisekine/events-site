@@ -4,10 +4,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # X (Twitter) API認証情報
-X_API_KEY = "2Lmr61n73q3deXyP7YPfJPg6o"
-X_API_SECRET = "AAAAAAAAAAAAAAAAAAAAAHNr3QEAAAAA8noVrOaYdxumWQ8fpFC09RBrosQ%3D9SuQoXs4wBcS9Ww0fej30rSNiWRSpxn2gvMmNIl5CCzxCdGV8J"
-X_ACCESS_TOKEN = "1931855044019879936-oiAaoAIVxJhQWbG1QbWSAXLfyDXZZ2"
-X_ACCESS_TOKEN_SECRET = "NXBGYqzIh9p7SzVieRbvlGUqQvrZqJnijABCEkE2KxCsl"
+X_API_KEY = os.getenv('X_API_KEY', '')
+X_API_SECRET = os.getenv('X_API_SECRET', '')
+X_ACCESS_TOKEN = os.getenv('X_ACCESS_TOKEN', '')
+X_ACCESS_TOKEN_SECRET = os.getenv('X_ACCESS_TOKEN_SECRET', '')
 
 # データベース設定
 EVENTS_DB = "events.db"

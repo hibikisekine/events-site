@@ -1,0 +1,38 @@
+2025-08-01 11:46:14,854 - INFO - データベース初期化完了
+2025-08-01 11:46:14,854 - INFO - キーワード検索中: つくば 新規オープン
+2025-08-01 11:46:15,091 - ERROR - キーワード 'つくば 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:15,091 - INFO - キーワード検索中: つくば 開店
+2025-08-01 11:46:15,315 - ERROR - キーワード 'つくば 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:15,315 - INFO - キーワード検索中: つくばみらい 新規オープン
+2025-08-01 11:46:15,502 - ERROR - キーワード 'つくばみらい 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:15,502 - INFO - キーワード検索中: つくばみらい 開店
+2025-08-01 11:46:15,700 - ERROR - キーワード 'つくばみらい 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:15,700 - INFO - キーワード検索中: 守谷 新規オープン
+2025-08-01 11:46:15,885 - ERROR - キーワード '守谷 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:15,885 - INFO - キーワード検索中: 守谷 開店
+2025-08-01 11:46:16,081 - ERROR - キーワード '守谷 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:16,081 - INFO - キーワード検索中: 取手 新規オープン
+2025-08-01 11:46:16,264 - ERROR - キーワード '取手 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:16,264 - INFO - キーワード検索中: 取手 開店
+2025-08-01 11:46:16,484 - ERROR - キーワード '取手 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:16,484 - INFO - キーワード検索中: 常総 新規オープン
+2025-08-01 11:46:16,678 - ERROR - キーワード '常総 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:16,679 - INFO - キーワード検索中: 常総 開店
+2025-08-01 11:46:16,864 - ERROR - キーワード '常総 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:16,865 - INFO - キーワード検索中: 龍ヶ崎 新規オープン
+2025-08-01 11:46:17,090 - ERROR - キーワード '龍ヶ崎 新規オープン' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:17,090 - INFO - キーワード検索中: 龍ヶ崎 開店
+2025-08-01 11:46:17,275 - ERROR - キーワード '龍ヶ崎 開店' の検索でエラー: 401 Unauthorized
+32 - Could not authenticate you.
+2025-08-01 11:46:17,275 - INFO - 合計 0 件の飲食店情報を取得
