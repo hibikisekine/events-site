@@ -440,17 +440,7 @@ body {
     max-height: 90px;
 }
 
-/* PC向け広告の表示制御 */
-.admax-pc {
-    display: block;
-}
 
-/* モバイルではPC向け広告を非表示 */
-@media (max-width: 768px) {
-    .admax-pc {
-        display: none !important;
-    }
-}
 
 /* サイドバー広告 */
 .sidebar-ad {
