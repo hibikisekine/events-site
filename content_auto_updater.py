@@ -641,3 +641,4 @@ if __name__ == "__main__":
     
     # 定期更新を開始（コメントアウトで無効化可能）
     # updater.schedule_updates()
+

@@ -86,6 +86,38 @@ function initializeNinjaAds() {
     
     // 広告バナーの表示状態を確認
     checkAdBanners();
+    
+    // PC向け広告の初期化
+    initializePCAds();
+}
+
+// PC向け広告の初期化
+function initializePCAds() {
+    console.log('🖥️ PC向け広告初期化開始');
+    
+    // PC向け広告要素の確認
+    const pcAdElements = document.querySelectorAll('.admax-pc');
+    console.log(`📊 PC向け広告要素数: ${pcAdElements.length}`);
+    
+    pcAdElements.forEach((element, index) => {
+        const isVisible = element.offsetParent !== null;
+        const rect = element.getBoundingClientRect();
+        console.log(`🖥️ PC向け広告${index + 1}: 表示=${isVisible}, 位置=(${rect.left}, ${rect.top}), サイズ=${rect.width}x${rect.height}`);
+        
+        // PC向け広告が見えない場合は警告を表示
+        if (!isVisible || rect.width === 0 || rect.height === 0) {
+            console.warn(`⚠️ PC向け広告${index + 1}が表示されていません:`, element);
+            element.style.border = '5px solid blue';
+            element.style.background = '#e3f2fd';
+        }
+    });
+    
+    // PC向け広告スクリプトの読み込み確認
+    const pcAdScripts = document.querySelectorAll('script[src*="90529da7801677645656122bb245a085"]');
+    console.log(`📊 PC向け広告スクリプト数: ${pcAdScripts.length}`);
+    pcAdScripts.forEach((script, index) => {
+        console.log(`📊 PC向け広告スクリプト${index + 1}: ${script.src}`);
+    });
 }
 
 // 広告バナーの表示状態を確認
